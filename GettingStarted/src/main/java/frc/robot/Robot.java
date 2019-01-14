@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 
   public int GetInt()
   {
-    return 6;
+    return 9;
   }
 
   /**
