@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -19,20 +20,30 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class DriveTrain extends Subsystem {
   //Subsystem devices
   private final SpeedController frontLeftCIM = new PWMVictorSPX(0);
-  private final SpeedController frontRightCIM = new PWMVictorSPX(1);
+  private final SpeedController rearLeftCIM = new PWMVictorSPX(1);
+  private final SpeedController frontRightCIM = new PWMVictorSPX(2);
+  private final SpeedController rearRightCIM = new PWMVictorSPX(4);
 
+  private final SpeedControllerGroup leftMotors = new SpeedControllerGroup(frontLeftCIM, rearLeftCIM);
+  private final SpeedControllerGroup rightMotors = new SpeedControllerGroup(frontRightCIM, rearRightCIM);
+  
   private final DifferentialDrive dDrive;
 
   public DriveTrain(){
     // Configure drive motors
     addChild("Front Left CIM", (PWMVictorSPX) frontLeftCIM);
+    addChild("Rear Left CIM", (PWMVictorSPX) rearLeftCIM);
     addChild("Front Right CIM", (PWMVictorSPX) frontRightCIM);
+    addChild("Rear Right CIM", (PWMVictorSPX) rearRightCIM);
+    addChild("Left Motor Group", (SpeedControllerGroup) leftMotors);
+    addChild("Right Motor Group", (SpeedControllerGroup) rightMotors);
+
     
     // Configure the DifferentialDrive to reflect the fact that all motors
     // are wired backwards (right is inverted in DifferentialDrive).
-    frontLeftCIM.setInverted(true);
+    leftMotors.setInverted(true);
 
-    dDrive = new DifferentialDrive(frontLeftCIM, frontRightCIM);
+    dDrive = new DifferentialDrive(leftMotors, rightMotors);
     dDrive.setSafetyEnabled(true);
     dDrive.setExpiration(0.1);
     dDrive.setMaxOutput(1.0);
