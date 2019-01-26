@@ -1,6 +1,6 @@
 package frc.test;
 
-
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * @author GCSCS
@@ -13,7 +13,7 @@ class TinkerClass
     public static void main(String[] args)
     {
 
-                
+        
 
     }
 
