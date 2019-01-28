@@ -10,9 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class DriveWithJoystick extends Command {
-  public DriveWithJoystick() {
-    requires(Robot.drivetrain);
+public class ClearCargo extends Command {
+  public ClearCargo() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.conveyor);
   }
 
   // Called just before this Command runs the first time
@@ -23,24 +25,26 @@ public class DriveWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.arcadeDrive(Robot.oi.getJoystick());
+    Robot.conveyor.ReverseFullSpeed();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // always running.
+    //run until interrupted
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.conveyor.FullStop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.subsystems.CargoConveyor;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.HatchArm;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +28,10 @@ import frc.robot.subsystems.DriveTrain;
 public class Robot extends TimedRobot {
   // Initialize the subsystems
   public static DriveTrain drivetrain = new DriveTrain();
+  public static CargoConveyor conveyor = new CargoConveyor();
+  public static HatchArm arm = new HatchArm();
 
+  //Initializes operator controls
   public static OI oi;
 
   Command m_autonomousCommand;
@@ -44,6 +49,7 @@ public class Robot extends TimedRobot {
     drivetrain.setDefaultCommand(new DriveWithJoystick());
 
     m_chooser.setDefaultOption("Default Auto", new DriveWithJoystick());
+  
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }

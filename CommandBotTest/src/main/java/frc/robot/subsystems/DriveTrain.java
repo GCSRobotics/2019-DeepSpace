@@ -13,16 +13,18 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.commands.DriveWithJoystick;
+import frc.robot.properties.Drive;
 
 /**
  * Add your docs here.
  */
 public class DriveTrain extends Subsystem {
   //Subsystem devices
-  private final SpeedController frontLeftCIM = new PWMVictorSPX(0);
-  private final SpeedController rearLeftCIM = new PWMVictorSPX(1);
-  private final SpeedController frontRightCIM = new PWMVictorSPX(2);
-  private final SpeedController rearRightCIM = new PWMVictorSPX(4);
+  private final SpeedController frontLeftCIM = new PWMVictorSPX(Drive.LeftFrontCIM);
+  private final SpeedController rearLeftCIM = new PWMVictorSPX(Drive.LeftRearCIM);
+  private final SpeedController frontRightCIM = new PWMVictorSPX(Drive.RightFrontCIM);
+  private final SpeedController rearRightCIM = new PWMVictorSPX(Drive.RightRearCIM);
 
   private final SpeedControllerGroup leftMotors = new SpeedControllerGroup(frontLeftCIM, rearLeftCIM);
   private final SpeedControllerGroup rightMotors = new SpeedControllerGroup(frontRightCIM, rearRightCIM);
@@ -30,18 +32,17 @@ public class DriveTrain extends Subsystem {
   private final DifferentialDrive dDrive;
 
   public DriveTrain(){
-    // Configure drive motors
+    // Configure drive motors as children so this sub system owns them and details can be displayed on smart dashboard
     addChild("Front Left CIM", (PWMVictorSPX) frontLeftCIM);
     addChild("Rear Left CIM", (PWMVictorSPX) rearLeftCIM);
     addChild("Front Right CIM", (PWMVictorSPX) frontRightCIM);
     addChild("Rear Right CIM", (PWMVictorSPX) rearRightCIM);
     addChild("Left Motor Group", (SpeedControllerGroup) leftMotors);
     addChild("Right Motor Group", (SpeedControllerGroup) rightMotors);
-
     
     // Configure the DifferentialDrive to reflect the fact that all motors
     // are wired backwards (right is inverted in DifferentialDrive).
-    leftMotors.setInverted(true);
+    rightMotors.setInverted(true);
 
     dDrive = new DifferentialDrive(leftMotors, rightMotors);
     dDrive.setSafetyEnabled(true);
@@ -54,7 +55,7 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new DriveWithJoystick());
   }
 
  /**
