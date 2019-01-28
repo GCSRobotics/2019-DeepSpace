@@ -29,6 +29,8 @@ public class Robot extends TimedRobot {
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer();
 
+  PowerDistributionPanel pdp = new PowerDistributionPanel();
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -36,7 +38,8 @@ public class Robot extends TimedRobot {
   // This is  comment. no its not
   @Override
   public void robotInit() {
-    CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.getInstance().startAutomaticCapture(0);
+    CameraServer.getInstance().startAutomaticCapture(1);
   }
 
   /**
