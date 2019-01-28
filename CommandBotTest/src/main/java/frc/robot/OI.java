@@ -22,8 +22,8 @@ import frc.robot.properties.Operator;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  private Joystick driveJoystick = new Joystick(0);
-  private Joystick operateJoystick = new Joystick(1);
+  private Joystick driveJoystick = new Joystick(Operator.DriveJoystick);
+  private Joystick operateJoystick = new Joystick(Operator.OperateJoyStick);
 
   private Button pickupButton = new JoystickButton(operateJoystick, Operator.PickupButton);
   private Button shootButton = new JoystickButton(operateJoystick, Operator.ShootButton);
