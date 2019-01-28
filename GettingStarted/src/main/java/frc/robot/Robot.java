@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.Enums;
 
@@ -32,7 +33,8 @@ public class Robot extends TimedRobot {
   private final Timer m_timer = new Timer();
 
   PowerDistributionPanel pdp = new PowerDistributionPanel();
-  private SendableChooser chooser = new SendableChooser();
+
+  private SendableChooser<Enums.DriveMode> chooser = new SendableChooser<Enums.DriveMode>();
   private Enums.DriveMode driveMode = null;
 
   /**
@@ -45,10 +47,11 @@ public class Robot extends TimedRobot {
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
 
-    chooser.addDefault("Tank Drive", Enums.DriveMode.tank);
-    chooser.addObject("Arcade (Single Stick)", Enums.DriveMode.arcadeSingle);
-    chooser.addObject("Arcade (Double Stick)", Enums.DriveMode.arcadeDouble);
+    chooser.setDefaultOption("Tank Drive", Enums.DriveMode.tank);
+    chooser.addOption("Arcade (Single Stick)", Enums.DriveMode.arcadeSingle);
+    chooser.addOption("Arcade (Double Stick)", Enums.DriveMode.arcadeDouble);
 
+    SmartDashboard.putData(chooser);
   }
 
   /**
@@ -88,6 +91,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("Volts", pdp.getVoltage());
+    SmartDashboard.putNumber("Motor 1 Current", pdp.getCurrent(0));
+
     switch(driveMode)
     {
 
