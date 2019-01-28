@@ -9,7 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.Enums;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +32,8 @@ public class Robot extends TimedRobot {
   private final Timer m_timer = new Timer();
 
   PowerDistributionPanel pdp = new PowerDistributionPanel();
+  private SendableChooser chooser = new SendableChooser();
+  private Enums.DriveMode driveMode = null;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -40,6 +44,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
+
+    chooser.addDefault("Tank Drive", Enums.DriveMode.tank);
+    chooser.addObject("Arcade (Single Stick)", Enums.DriveMode.arcadeSingle);
+    chooser.addObject("Arcade (Double Stick)", Enums.DriveMode.arcadeDouble);
+
   }
 
   /**
@@ -68,7 +77,10 @@ public class Robot extends TimedRobot {
    * This function is called once each time the robot enters teleoperated mode.
    */
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
+    driveMode = (Enums.DriveMode)chooser.getSelected();
+
   }
 
   /**
@@ -76,7 +88,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX(),true);
+    switch(driveMode)
+    {
+
+      case arcadeSingle : m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX(), true);
+        break;
+      case arcadeDouble : m_robotDrive.arcadeDrive(m_stick.getRawAxis(1), m_stick.getRawAxis(4));
+        break;
+      case tank : m_robotDrive.tankDrive(m_stick.getRawAxis(1), m_stick.getRawAxis(5));
+        break;
+
+    }
+    
   }
 
   /**
@@ -84,5 +107,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    
+ 
   }
+
+
 }
+
+
+
