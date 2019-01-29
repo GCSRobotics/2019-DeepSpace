@@ -7,10 +7,12 @@
 
 package frc.robot.properties;
 
+import frc.robot.Robot;
+
 /**
  * Add your docs here.
  */
 public class Cameras{
-    public static final int HatchCamera = 0;
-    public static final int DriveCamera = 1;
+    public static int HatchCamera = Robot.getPreferences().getInt("HatchCamera-USB", 0);
+    public static int DriveCamera = Robot.getPreferences().getInt("DriveCamera-USB", 1);
 }

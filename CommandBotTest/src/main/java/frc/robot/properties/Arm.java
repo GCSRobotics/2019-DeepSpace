@@ -7,9 +7,11 @@
 
 package frc.robot.properties;
 
+import frc.robot.Robot;
+
 /**
  * Defines properties of the Hatch Arm.
  */
 public class Arm {
-    public static final int Motor = 5;
+    public static int Motor = Robot.getPreferences().getInt("HatchMotor-PWM", 5);
 }

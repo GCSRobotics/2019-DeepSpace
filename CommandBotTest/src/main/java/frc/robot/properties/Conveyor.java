@@ -7,9 +7,11 @@
 
 package frc.robot.properties;
 
+import frc.robot.Robot;
+
 /**
  * Add your docs here.
  */
 public class Conveyor {
-    public static final int Motor = 4;
+    public static int Motor = Robot.getPreferences().getInt("ConveyorMotor-PWM", 4);;
 }

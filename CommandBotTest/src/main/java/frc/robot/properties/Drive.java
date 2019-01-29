@@ -7,13 +7,14 @@
 
 package frc.robot.properties;
 
+import frc.robot.Robot;
 
 /**
  * Defines properties of the Cargo Conveyor.
  */
 public class Drive {
-    public static final int LeftFrontCIM = 0;
-    public static final int LeftRearCIM = 1;
-    public static final int RightFrontCIM = 2;
-    public static final int RightRearCIM = 3;
+    public static int LeftFrontCIM = Robot.getPreferences().getInt("LeftFrontCIM-PWM", 0);
+    public static int LeftRearCIM = Robot.getPreferences().getInt("LeftRearCIM-PWM", 1);
+    public static int RightFrontCIM = Robot.getPreferences().getInt("RightFrontCIM-PWM", 2);
+    public static int RightRearCIM = Robot.getPreferences().getInt("RightRearCIM-PWM", 3);
 }
