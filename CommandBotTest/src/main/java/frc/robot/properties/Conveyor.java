@@ -11,5 +11,5 @@ package frc.robot.properties;
  * Add your docs here.
  */
 public class Conveyor {
-    public static int Motor = 4;
+    public static final Motor = 4;
 }

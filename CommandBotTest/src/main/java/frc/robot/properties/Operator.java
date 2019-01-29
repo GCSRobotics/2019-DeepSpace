@@ -11,12 +11,12 @@ package frc.robot.properties;
  * Add your docs here.
  */
 public class Operator {
-    public static int DriveJoystick = 0;
-    public static int OperateJoyStick = 1;
+    public static final int DriveJoystick = 0;
+    public static final int OperateJoyStick = 1;
 
-    public static int PickupButton = 1;
-    public static int ShootButton = 2;
-    public static int ClearButton = 3;
-    public static int LowerArmButton = 4;
-    public static int RaiseArmButton = 5; 
+    public static final int PickupButton = 1;
+    public static final int ShootButton = 2;
+    public static final int ClearButton = 3;
+    public static final int LowerArmButton = 4;
+    public static final int RaiseArmButton = 5; 
 }

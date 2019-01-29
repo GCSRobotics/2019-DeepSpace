@@ -11,5 +11,5 @@ package frc.robot.properties;
  * Defines properties of the Hatch Arm.
  */
 public class Arm {
-    public static int Motor = 5;
+    public static final int Motor = 5;
 }
