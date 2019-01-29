@@ -37,11 +37,11 @@ public class Robot extends TimedRobot {
   // Define operator controls
   public static OI oi;
 
-  Command m_autonomousCommand;
-  DriveMode teleOpMode;
   SendableChooser<Command> autonChooser = new SendableChooser<>();
-  SendableChooser<DriveMode> teleChooser = new SendableChooser<>();
-
+  SendableChooser<Command> teleChooser = new SendableChooser<>();
+  Command autonomousCommand;
+  Command teleOpCommand;
+  
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -61,20 +61,27 @@ public class Robot extends TimedRobot {
   }
 
   private void DashboardInit() {
+    //Auton Mode Selections
+    autonChooser.setDefaultOption("Tank Drive", new DriveWithJoystick(DriveMode.Tank));
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Autono Mode - Disable/Enable to change", autonChooser);
+
+    //TeleOp Mode Selections
+    teleChooser.setDefaultOption("Tank Drive", new DriveWithJoystick(DriveMode.Tank));
+    teleChooser.addOption("Arcade (Single Stick)", new DriveWithJoystick(DriveMode.ArcadeSingle));
+    teleChooser.addOption("Arcade (Double Stick)", new DriveWithJoystick(DriveMode.ArcadeDouble));
+    SmartDashboard.putData("TeleOp Mode - Disable/Enable to change", teleChooser);
+
+    //Display Scheduled Commands
+    SmartDashboard.putData(Scheduler.getInstance());
+
+    //Subsystem Displays
     SmartDashboard.putData("Electrical", electrical);
     SmartDashboard.putData("Drivetrain", drivetrain);
     SmartDashboard.putData("Conveyor", conveyor);
     SmartDashboard.putData("Hatch Arm", arm);
 
-    autonChooser.setDefaultOption("Default Auto", new DriveWithJoystick());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", autonChooser);
-
-    teleChooser.setDefaultOption("Tank Drive", DriveMode.Tank);
-    teleChooser.addOption("Arcade (Single Stick)", DriveMode.ArcadeSingle);
-    teleChooser.addOption("Arcade (Double Stick)", DriveMode.ArcadeDouble);
-    SmartDashboard.putData(teleChooser);
- }
+  }
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for
@@ -117,19 +124,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = autonChooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     * switch(autoSelected) { case "My Auto": autonomousCommand = new
-     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-     * ExampleCommand(); break; }
-     */
-
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+    autonomousCommand = autonChooser.getSelected();
+    if (autonomousCommand != null) {
+      autonomousCommand.start();
     }
+    System.out.println("Teleop Init: Command = " + autonomousCommand);
   }
 
   /**
@@ -146,11 +146,14 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
-    teleOpMode = (DriveMode)teleChooser.getSelected();
+    Scheduler.getInstance().removeAll();
 
+    teleOpCommand = teleChooser.getSelected();
+    if (teleOpCommand != null) {
+      drivetrain.setDefaultCommand(teleOpCommand);
+    }
+
+    System.out.println("Teleop Init: Command = " + teleOpCommand);
   }
 
   /**
@@ -159,6 +162,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+  }
+
+  @Override
+  public void testInit() {
+    Scheduler.getInstance().removeAll();
+
+    //Add Commands to test with
+    SmartDashboard.putData("Drive With Joystick", new DriveWithJoystick());
   }
 
   /**

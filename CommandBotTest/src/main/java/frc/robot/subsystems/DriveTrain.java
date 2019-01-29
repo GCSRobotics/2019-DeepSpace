@@ -32,6 +32,7 @@ public class DriveTrain extends Subsystem {
   private final DifferentialDrive dDrive;
 
   public DriveTrain(){
+    super("Drive Train");
     // Configure drive motors as children so this sub system owns them and details can be displayed on smart dashboard
     addChild("Front Left CIM", (PWMVictorSPX) frontLeftCIM);
     addChild("Rear Left CIM", (PWMVictorSPX) rearLeftCIM);
@@ -70,11 +71,11 @@ public class DriveTrain extends Subsystem {
   /**
    * Tank drive using individual joystick axes.
    *
-   * @param leftAxis Left sides value
-   * @param rightAxis Right sides value
+   * @param leftSpeedAxis Left sides value
+   * @param rightSpeedAxis Right sides value
    */
-  public void tankDrive(double leftAxis, double rightAxis) {
-    dDrive.tankDrive(leftAxis, rightAxis);
+  public void tankDrive(double leftSpeedAxis, double rightSpeedAxis) {
+    dDrive.tankDrive(leftSpeedAxis, rightSpeedAxis);
   }
 
 
@@ -90,11 +91,11 @@ public class DriveTrain extends Subsystem {
     /**
    * Tank drive using individual joystick axes.
    *
-   * @param leftAxis Left sides value
-   * @param rightAxis Right sides value
+   * @param speedAxis Left sides value
+   * @param rotationAxis Right sides value
    */
-  public void arcadeDrive(double leftAxis, double rightAxis) {
-    dDrive.arcadeDrive(leftAxis, rightAxis, true);
+  public void arcadeDrive(double speedAxis, double rotationAxis) {
+    dDrive.arcadeDrive(speedAxis, rotationAxis, true);
   }
 
 

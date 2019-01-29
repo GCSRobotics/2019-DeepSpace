@@ -23,6 +23,7 @@ public class HatchArm extends Subsystem {
   // here. Call these from Commands.
 
   public HatchArm() {
+    super("Hatch Arm");
     // Configure dependant objects as children so details can be displayed on smart
     // dashboard
     addChild("Arm Motor", (PWMVictorSPX) armMotor);

@@ -21,6 +21,7 @@ public class Electrical extends Subsystem {
   PowerDistributionPanel pdp = new PowerDistributionPanel();
 
   public Electrical() {
+    super("Electrical");
     //Initialize the cameras
     CameraServer.getInstance().startAutomaticCapture(Cameras.DriveCamera);
     CameraServer.getInstance().startAutomaticCapture(Cameras.HatchCamera);

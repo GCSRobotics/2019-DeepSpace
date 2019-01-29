@@ -23,6 +23,7 @@ public class CargoConveyor extends Subsystem {
   // Sensors?
 
   public CargoConveyor() {
+    super("Cargo Conveyor");
     // Configure dependant objects as children so details can be displayed on smart dashboard
     addChild("Pickup Motor", (PWMVictorSPX) pickupMotor);
   }

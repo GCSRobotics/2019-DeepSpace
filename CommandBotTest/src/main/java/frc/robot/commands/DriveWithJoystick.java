@@ -7,12 +7,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.enums.DriveMode;
+import frc.robot.properties.Operator;
 
 public class DriveWithJoystick extends Command {
+  DriveMode driveMode;
+
   public DriveWithJoystick() {
+    this(DriveMode.ArcadeDouble);  //default to Arcade Double stick
+  }
+  public DriveWithJoystick(DriveMode mode) {
     requires(Robot.drivetrain);
+    driveMode = mode;
   }
 
   // Called just before this Command runs the first time
@@ -23,7 +32,16 @@ public class DriveWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.arcadeDrive(Robot.oi.getJoystick());
+    Joystick driveStick = Robot.oi.getJoystick();
+    switch(driveMode)
+    {
+      case ArcadeSingle : Robot.drivetrain.arcadeDrive(driveStick.getY(), driveStick.getX());
+        break;
+      case ArcadeDouble : Robot.drivetrain.arcadeDrive(driveStick.getRawAxis(Operator.ArcadeSpeedAxis), driveStick.getRawAxis(Operator.ArcadeRotationAxis));
+        break;
+      case Tank : Robot.drivetrain.tankDrive(driveStick.getRawAxis(Operator.TankLeftSpeedAxis), driveStick.getRawAxis(Operator.TankRightSpeedAxis));
+        break;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

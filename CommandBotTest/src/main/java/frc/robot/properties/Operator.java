@@ -18,5 +18,12 @@ public class Operator {
     public static final int ShootButton = 2;
     public static final int ClearButton = 3;
     public static final int LowerArmButton = 4;
-    public static final int RaiseArmButton = 5; 
+    public static final int RaiseArmButton = 5;
+    
+    public static final int ArcadeSpeedAxis = 1;
+    public static final int ArcadeRotationAxis = 4;
+
+    public static final int TankLeftSpeedAxis = 1;
+    public static final int TankRightSpeedAxis = 5;
+
 }
