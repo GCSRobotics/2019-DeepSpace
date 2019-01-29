@@ -14,8 +14,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.enums.DriveMode;
 import frc.robot.subsystems.CargoConveyor;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Electrical;
 import frc.robot.subsystems.HatchArm;
 
 /**
@@ -26,50 +28,71 @@ import frc.robot.subsystems.HatchArm;
  * project.
  */
 public class Robot extends TimedRobot {
-  // Initialize the subsystems
-  public static DriveTrain drivetrain = new DriveTrain();
-  public static CargoConveyor conveyor = new CargoConveyor();
-  public static HatchArm arm = new HatchArm();
+  // Define the subsystems
+  public static Electrical electrical;
+  public static DriveTrain drivetrain;
+  public static CargoConveyor conveyor;
+  public static HatchArm arm;
 
-  //Initializes operator controls
+  // Define operator controls
   public static OI oi;
 
   Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  DriveMode teleOpMode;
+  SendableChooser<Command> autonChooser = new SendableChooser<>();
+  SendableChooser<DriveMode> teleChooser = new SendableChooser<>();
 
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
+    // Initialize Subsystems
+    electrical = new Electrical();
+    drivetrain = new DriveTrain();
+    conveyor = new CargoConveyor();
+    arm = new HatchArm();
+
+    // Initialize Operator Interface
     oi = new OI();
 
-    //Set the default DriveTrain command
-    drivetrain.setDefaultCommand(new DriveWithJoystick());
-
-    m_chooser.setDefaultOption("Default Auto", new DriveWithJoystick());
-  
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    DashboardInit();
   }
 
+  private void DashboardInit() {
+    SmartDashboard.putData("Electrical", electrical);
+    SmartDashboard.putData("Drivetrain", drivetrain);
+    SmartDashboard.putData("Conveyor", conveyor);
+    SmartDashboard.putData("Hatch Arm", arm);
+
+    autonChooser.setDefaultOption("Default Auto", new DriveWithJoystick());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", autonChooser);
+
+    teleChooser.setDefaultOption("Tank Drive", DriveMode.Tank);
+    teleChooser.addOption("Arcade (Single Stick)", DriveMode.ArcadeSingle);
+    teleChooser.addOption("Arcade (Double Stick)", DriveMode.ArcadeDouble);
+    SmartDashboard.putData(teleChooser);
+ }
+
   /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like diagnostics that you want ran during disabled, autonomous,
+   * teleoperated and test.
    *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
   }
 
   /**
-   * This function is called once each time the robot enters Disabled mode.
-   * You can use it to reset any subsystem information you want to clear when
-   * the robot is disabled.
+   * This function is called once each time the robot enters Disabled mode. You
+   * can use it to reset any subsystem information you want to clear when the
+   * robot is disabled.
    */
   @Override
   public void disabledInit() {
@@ -82,24 +105,25 @@ public class Robot extends TimedRobot {
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
+   * between different autonomous modes using the dashboard. The sendable chooser
+   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+   * remove all of the chooser code and uncomment the getString code to get the
+   * auto name from the text box below the Gyro
    *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
+   * <p>
+   * You can add additional auto modes by adding additional commands to the
+   * chooser code above (like the commented example) or additional comparisons to
+   * the switch structure below with additional strings & commands.
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    m_autonomousCommand = autonChooser.getSelected();
 
     /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
+     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+     * switch(autoSelected) { case "My Auto": autonomousCommand = new
+     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
+     * ExampleCommand(); break; }
      */
 
     // schedule the autonomous command (example)
@@ -125,6 +149,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    teleOpMode = (DriveMode)teleChooser.getSelected();
+
   }
 
   /**
