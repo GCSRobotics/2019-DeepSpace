@@ -30,13 +30,13 @@ import frc.robot.subsystems.HatchArm;
  */
 public class Robot extends TimedRobot {
   // Define the subsystems
-  public static Electrical electrical;
-  public static DriveTrain drivetrain;
-  public static CargoConveyor conveyor;
-  public static HatchArm arm;
+  public static Electrical electrical = new Electrical();
+  public static DriveTrain drivetrain = new DriveTrain();
+  public static CargoConveyor conveyor = new CargoConveyor();
+  public static HatchArm arm = new HatchArm();
 
   // Define operator controls
-  public static OI oi;
+  public static OI oi = new OI();
 
   SendableChooser<Command> autonChooser = new SendableChooser<>();
   SendableChooser<Command> teleChooser = new SendableChooser<>();
@@ -49,16 +49,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Initialize Subsystems
-    electrical = new Electrical();
-    drivetrain = new DriveTrain();
-    conveyor = new CargoConveyor();
-    arm = new HatchArm();
-
-    // Initialize Operator Interface
-    oi = new OI();
-
-    DashboardInit();
+        DashboardInit();
   }
 
   private void DashboardInit() {

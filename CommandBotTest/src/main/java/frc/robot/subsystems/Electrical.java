@@ -18,7 +18,7 @@ import frc.robot.properties.Cameras;
 public class Electrical extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  PowerDistributionPanel pdp = new PowerDistributionPanel();
+  private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
   public Electrical() {
     super("Electrical");
