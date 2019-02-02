@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.properties.RobotMap;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,8 +23,8 @@ public class OI {
   //// joystick.
   // You create one by telling it which joystick it's on and which button
   // number it is.
-  public static final Joystick DriverStick = new Joystick(0);
-  public static final Joystick OperatorStick = new Joystick(1);
+  public static final Joystick DriverStick = new Joystick(RobotMap.DriveJoystick);
+  public static final Joystick OperatorStick = new Joystick(RobotMap.OperateJoyStick);
 
   Button ButtonY = new JoystickButton(OperatorStick, 0);
   Button ButtonX = new JoystickButton(OperatorStick, 1);

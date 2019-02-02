@@ -25,11 +25,14 @@ public class RobotMap {
     public static int DriveJoystick = 0;
     public static int OperateJoyStick = 1;
 
-    public static int PickupButton = 1;
-    public static int ShootButton = 2;
-    public static int ClearButton = 3;
-    public static int LowerArmButton = 4;
-    public static int RaiseArmButton = 5;
+    public static int ButtonY = 0;
+    public static int ButtonX = 1;
+    public static int ButtonA = 2;
+    public static int ButtonB = 3;
+    public static int ButtonL1 = 4;
+    public static int ButtonR1 = 5;
+    public static int ButtonL2 = 6;
+    public static int ButtonR2 = 7;
     
     public static int ArcadeSpeedAxis = 1;
     public static int ArcadeRotationAxis = 4;

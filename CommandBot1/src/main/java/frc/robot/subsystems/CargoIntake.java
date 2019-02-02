@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.properties.RobotMap;
 
 /**
  * Add your docs here.
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CargoIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedController intakeMotor = new PWMVictorSPX(4);
+  private final SpeedController intakeMotor = new PWMVictorSPX(RobotMap.ConveyorMotor);
 public CargoIntake() {
   super("Cargo Intake");
   addChild((PWMVictorSPX) intakeMotor);
