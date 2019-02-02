@@ -7,39 +7,32 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.properties.RobotMap;
+import frc.robot.properties.*;
 
 /**
  * Add your docs here.
  */
-public class HatchArm extends Subsystem {
+public class Electrical extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedController armMotor = new PWMVictorSPX(RobotMap.ArmMotor);
+  private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
-  public HatchArm() {
-    super("Hatch Arm");
-    addChild((PWMVictorSPX) armMotor);
+  public Electrical() {
+    super("Electrical");
+    //Initialize the cameras
+    CameraServer.getInstance().startAutomaticCapture(RobotMap.DriveCamera);
+    CameraServer.getInstance().startAutomaticCapture(RobotMap.HatchCamera);
+
+    addChild("Power Distribution", pdp);
   }
 
-  @Override
+  
+@Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-  }
-
-  public void Extend() {
-    armMotor.set(1);
-  }
-
-  public void Retract() {
-    armMotor.set(-1);
-  }
-
-  public void Stop() {
-    armMotor.set(0);
   }
 }

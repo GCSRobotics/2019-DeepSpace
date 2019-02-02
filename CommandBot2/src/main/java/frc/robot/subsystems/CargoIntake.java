@@ -10,36 +10,43 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.properties.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class HatchArm extends Subsystem {
+public class CargoIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedController armMotor = new PWMVictorSPX(RobotMap.ArmMotor);
+  private final SpeedController intakeMotor = new PWMVictorSPX(4);
+public CargoIntake() {
+  super("Cargo Intake");
+  addChild((PWMVictorSPX) intakeMotor);
 
-  public HatchArm() {
-    super("Hatch Arm");
-    addChild((PWMVictorSPX) armMotor);
-  }
-
+}
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void Extend() {
-    armMotor.set(1);
+  public void ForwardFullSpeed() {
+    intakeMotor.set(1);
   }
 
-  public void Retract() {
-    armMotor.set(-1);
+  public void ReverseFullSpeed() {
+    intakeMotor.set(-1);
+  }
+
+  public void ForwardHalfSpeed() {
+    intakeMotor.set(.5);
+  }
+
+  public void ReverseHalfSpeed() {
+    intakeMotor.set(-.5);
   }
 
   public void Stop() {
-    armMotor.set(0);
+    intakeMotor.set(0);
   }
+
 }

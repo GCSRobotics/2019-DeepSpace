@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.properties.RobotMap;
 
 /**
  * Add your docs here.
@@ -18,7 +17,7 @@ import frc.robot.properties.RobotMap;
 public class HatchArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedController armMotor = new PWMVictorSPX(RobotMap.ArmMotor);
+  private final SpeedController armMotor = new PWMVictorSPX(5);
 
   public HatchArm() {
     super("Hatch Arm");
