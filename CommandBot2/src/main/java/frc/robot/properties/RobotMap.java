@@ -37,7 +37,7 @@ public class RobotMap {
     public static final int ButtonL1 = 4;
     public static final int ButtonR1 = 5;
     public static final int ButtonL2 = 6;
-    public static final int ButtonR2 = 7;
+    // public static final int ButtonR2 = 7;
 
     // Pickup values.
     public static final int PickupButton = 1;

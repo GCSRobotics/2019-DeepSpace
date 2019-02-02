@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
   public static HatchArm Arm = new HatchArm();
   public static CargoIntake Intake = new CargoIntake();
   public static Drivetrain Drive = new Drivetrain();
-  public static Electrical Electric = new Electrical();
+  // public static Electrical Electric = new Electrical();
   public static OI OI = new OI();
 
   SendableChooser<Command> autonChooser = new SendableChooser<>();
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(Scheduler.getInstance());
 
     // Subsystem Displays
-    SmartDashboard.putData("Electrical", Electric);
+    // SmartDashboard.putData("Electrical", Electric);
     SmartDashboard.putData("Drivetrain", Drive);
     SmartDashboard.putData("Intake", Intake);
     SmartDashboard.putData("Hatch Arm", Arm);
