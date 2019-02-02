@@ -12,15 +12,16 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.properties.RobotMap;
 
 /**
  * Add your docs here.
  */
 public class Drivetrain extends Subsystem {
-  private static final PWMVictorSPX RearRightMotor = new PWMVictorSPX(3);
-  private static final PWMVictorSPX FrontRightMotor = new PWMVictorSPX(2);
-  private static final PWMVictorSPX RearLeftMotor = new PWMVictorSPX(1);
-  private static final PWMVictorSPX FrontLeftMotor = new PWMVictorSPX(0);
+  private static final PWMVictorSPX RearRightMotor = new PWMVictorSPX(RobotMap.RightRearMotor);
+  private static final PWMVictorSPX FrontRightMotor = new PWMVictorSPX(RobotMap.RightFrontMotor);
+  private static final PWMVictorSPX RearLeftMotor = new PWMVictorSPX(RobotMap.LeftRearMotor);
+  private static final PWMVictorSPX FrontLeftMotor = new PWMVictorSPX(RobotMap.LeftFrontMotor);
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final SpeedControllerGroup speedControllerGroupLeft = 
@@ -45,6 +46,7 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+
   }
  /**
    * Tank drive using a PS3 joystick.
@@ -52,7 +54,7 @@ public class Drivetrain extends Subsystem {
    * @param joy PS3 style joystick to use as the input for tank drive.
    */
   public void tankDrive(Joystick joy) {
-    robotDrive.tankDrive(joy.getY(), joy.getRawAxis(4));
+    robotDrive.tankDrive(joy.getRawAxis(RobotMap.TankLeftSpeedAxis), joy.getRawAxis(RobotMap.TankRightSpeedAxis));
   }
 
   /**
