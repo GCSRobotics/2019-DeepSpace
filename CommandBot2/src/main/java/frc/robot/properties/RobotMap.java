@@ -27,7 +27,7 @@ public class RobotMap {
 
     // Joystick values.
     public static final int DriveJoystick = 0;
-    public static final int OperateJoyStick = 1;
+    public static final int OperateJoystick = 1;
 
     // Joystick button values.
     public static final int ButtonY = 0;
