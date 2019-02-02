@@ -25,8 +25,8 @@ public class OI {
   Joystick DriverStick = new Joystick(0);
   Joystick OperatorStick = new Joystick(1);
 
-  Button ButtonX = new JoystickButton(OperatorStick, 0);
-  Button ButtonY = new JoystickButton(OperatorStick, 1);
+  Button ButtonY = new JoystickButton(OperatorStick, 0);
+  Button ButtonX = new JoystickButton(OperatorStick, 1);
   Button ButtonA = new JoystickButton(OperatorStick, 2);
   Button ButtonB = new JoystickButton(OperatorStick, 3);
   Button ButtonL1 = new JoystickButton(OperatorStick, 4);
