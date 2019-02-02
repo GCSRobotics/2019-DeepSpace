@@ -9,6 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.Enums;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,12 +22,20 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private final SpeedControllerGroup speedControllerGroupleft = new SpeedControllerGroup(new PWMVictorSPX(0), new PWMVictorSPX(1));
-  private final SpeedControllerGroup speedControllerGroupright = new SpeedControllerGroup(new PWMVictorSPX(2), new PWMVictorSPX(3));
-  private final DifferentialDrive m_robotDrive
-      = new DifferentialDrive(speedControllerGroupleft, speedControllerGroupright);
+  private final SpeedControllerGroup speedControllerGroupleft = 
+      new SpeedControllerGroup(new PWMVictorSPX(0), new PWMVictorSPX(1));
+  private final SpeedControllerGroup speedControllerGroupright = 
+      new SpeedControllerGroup(new PWMVictorSPX(2), new PWMVictorSPX(3));
+  private final DifferentialDrive m_robotDrive = 
+      new DifferentialDrive(speedControllerGroupleft, speedControllerGroupright);
+  
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer();
+
+  PowerDistributionPanel pdp = new PowerDistributionPanel();
+
+  private SendableChooser<Enums.DriveMode> chooser = new SendableChooser<Enums.DriveMode>();
+  private Enums.DriveMode driveMode = null;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -32,6 +44,14 @@ public class Robot extends TimedRobot {
   // This is  comment. no its not
   @Override
   public void robotInit() {
+    CameraServer.getInstance().startAutomaticCapture(0);
+    CameraServer.getInstance().startAutomaticCapture(1);
+
+    chooser.setDefaultOption("Tank Drive", Enums.DriveMode.tank);
+    chooser.addOption("Arcade (Single Stick)", Enums.DriveMode.arcadeSingle);
+    chooser.addOption("Arcade (Double Stick)", Enums.DriveMode.arcadeDouble);
+
+    SmartDashboard.putData(chooser);
   }
 
   /**
@@ -60,7 +80,10 @@ public class Robot extends TimedRobot {
    * This function is called once each time the robot enters teleoperated mode.
    */
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
+    driveMode = (Enums.DriveMode)chooser.getSelected();
+
   }
 
   /**
@@ -68,7 +91,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX(),true);
+    SmartDashboard.putNumber("Volts", pdp.getVoltage());
+    SmartDashboard.putNumber("Motor 1 Current", pdp.getCurrent(0));
+
+    switch(driveMode)
+    {
+
+      case arcadeSingle : m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX(), true);
+        break;
+      case arcadeDouble : m_robotDrive.arcadeDrive(m_stick.getRawAxis(1), m_stick.getRawAxis(4));
+        break;
+      case tank : m_robotDrive.tankDrive(m_stick.getRawAxis(1), m_stick.getRawAxis(5));
+        break;
+
+    }
+    
   }
 
   /**
@@ -76,5 +113,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    
+ 
   }
+
+
 }
+
+
+

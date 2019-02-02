@@ -7,45 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ClearCargo;
-import frc.robot.commands.ExtendHatchArm;
-import frc.robot.commands.PickupCargo;
-import frc.robot.commands.RetractHatchArm;
-import frc.robot.commands.ShootCargo;
-import frc.robot.properties.Operator;
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  private Joystick driveJoystick = new Joystick(Operator.DriveJoystick);
-  private Joystick operateJoystick = new Joystick(Operator.OperateJoyStick);
-
-  private Button pickupButton = new JoystickButton(operateJoystick, Operator.PickupButton);
-  private Button shootButton = new JoystickButton(operateJoystick, Operator.ShootButton);
-  private Button clearButton = new JoystickButton(operateJoystick, Operator.ClearButton);
-  private Button lowerArmButton = new JoystickButton(operateJoystick, Operator.LowerArmButton);
-  private Button raiseArmButton = new JoystickButton(operateJoystick, Operator.RaiseArmButton);
-  
-
-  public OI() {
-    //Set commands for buttons
-    pickupButton.whenPressed(new PickupCargo());;
-    shootButton.whenPressed(new ShootCargo());;
-    lowerArmButton.whenPressed(new ExtendHatchArm());
-    raiseArmButton.whenPressed(new RetractHatchArm());
-
-    clearButton.whileHeld(new ClearCargo());
-  }
-
-  public Joystick getJoystick() {
-    return driveJoystick;
-  }
-
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

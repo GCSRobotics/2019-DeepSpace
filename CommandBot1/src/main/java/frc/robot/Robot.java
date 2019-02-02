@@ -7,18 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.commands.DriveWithJoystick;
-import frc.robot.enums.DriveMode;
-import frc.robot.subsystems.CargoConveyor;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Electrical;
+import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.HatchArm;
 
 /**
@@ -29,50 +23,23 @@ import frc.robot.subsystems.HatchArm;
  * project.
  */
 public class Robot extends TimedRobot {
-  // Define the subsystems
-  public static Electrical electrical = new Electrical();
-  public static DriveTrain drivetrain = new DriveTrain();
-  public static CargoConveyor conveyor = new CargoConveyor();
-  public static HatchArm arm = new HatchArm();
-
-  // Define operator controls
-  public static OI oi = new OI();
-
-  SendableChooser<Command> autonChooser = new SendableChooser<>();
-  SendableChooser<Command> teleChooser = new SendableChooser<>();
-  Command autonomousCommand;
-  Command teleOpCommand;
   
+  public static HatchArm Arm = new HatchArm();
+  public static CargoIntake Intake = new CargoIntake();
+  public static OI m_oi;
+
+  Command m_autonomousCommand;
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
-        DashboardInit();
-  }
-
-  private void DashboardInit() {
-    //Auton Mode Selections
-    autonChooser.setDefaultOption("Tank Drive", new DriveWithJoystick(DriveMode.Tank));
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Autono Mode - Disable/Enable to change", autonChooser);
-
-    //TeleOp Mode Selections
-    teleChooser.setDefaultOption("Tank Drive", new DriveWithJoystick(DriveMode.Tank));
-    teleChooser.addOption("Arcade (Single Stick)", new DriveWithJoystick(DriveMode.ArcadeSingle));
-    teleChooser.addOption("Arcade (Double Stick)", new DriveWithJoystick(DriveMode.ArcadeDouble));
-    SmartDashboard.putData("TeleOp Mode - Disable/Enable to change", teleChooser);
-
-    //Display Scheduled Commands
-    SmartDashboard.putData(Scheduler.getInstance());
-
-    //Subsystem Displays
-    SmartDashboard.putData("Electrical", electrical);
-    SmartDashboard.putData("Drivetrain", drivetrain);
-    SmartDashboard.putData("Conveyor", conveyor);
-    SmartDashboard.putData("Hatch Arm", arm);
-
+    m_oi = new OI();
+    // chooser.addObject("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   /**
@@ -116,12 +83,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_autonomousCommand = m_chooser.getSelected();
+
+    /*
+     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+     * switch(autoSelected) { case "My Auto": autonomousCommand = new
+     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
+     * ExampleCommand(); break; }
+     */
+
     // schedule the autonomous command (example)
-    autonomousCommand = autonChooser.getSelected();
-    if (autonomousCommand != null) {
-      autonomousCommand.start();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.start();
     }
-    System.out.println("Teleop Init: Command = " + autonomousCommand);
   }
 
   /**
@@ -138,14 +112,9 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    Scheduler.getInstance().removeAll();
-
-    teleOpCommand = teleChooser.getSelected();
-    if (teleOpCommand != null) {
-      drivetrain.setDefaultCommand(teleOpCommand);
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
     }
-
-    System.out.println("Teleop Init: Command = " + teleOpCommand);
   }
 
   /**
@@ -156,22 +125,11 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  @Override
-  public void testInit() {
-    Scheduler.getInstance().removeAll();
-
-    //Add Commands to test with
-    SmartDashboard.putData("Drive With Joystick", new DriveWithJoystick());
-  }
-
   /**
    * This function is called periodically during test mode.
    */
   @Override
   public void testPeriodic() {
   }
-
-  public static Preferences getPreferences(){
-    return Preferences.getInstance();
-  }
 }
+// uwu
