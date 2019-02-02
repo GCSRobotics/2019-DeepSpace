@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.HatchArm;
+import frc.robot.commands.*;
+import frc.robot.enums.*;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,13 +24,17 @@ import frc.robot.subsystems.HatchArm;
  * project.
  */
 public class Robot extends TimedRobot {
-  
+
   public static HatchArm Arm = new HatchArm();
   public static CargoIntake Intake = new CargoIntake();
-  public static OI m_oi;
+  public static Drivetrain Drive = new Drivetrain();
+  public static Electrical Electric = new Electrical();
+  public static OI OI = new OI();
 
-  Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Command> autonChooser = new SendableChooser<>();
+  SendableChooser<Command> teleChooser = new SendableChooser<>();
+  Command autonomousCommand;
+  Command teleOpCommand;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -37,9 +42,30 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
-    // chooser.addObject("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    DashboardInit();
+  }
+
+  private void DashboardInit() {
+    //Auton Mode Selections
+    autonChooser.addDefault("Tank Drive", new DriveWithJoystick(DriveMode.Tank));
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Autono Mode - Disable/Enable to change", autonChooser);
+
+    // TeleOp Mode Selections
+    teleChooser.addDefault("Tank Drive", (Command) new DriveWithJoystick(DriveMode.Tank));
+    teleChooser.addObject("Arcade (Single Stick)", new DriveWithJoystick(DriveMode.ArcadeSingle));
+    teleChooser.addObject("Arcade (Double Stick)", new DriveWithJoystick(DriveMode.ArcadeDouble));
+    SmartDashboard.putData("TeleOp Mode - Disable/Enable to change", teleChooser);
+
+    // Display Scheduled Commands
+    SmartDashboard.putData(Scheduler.getInstance());
+
+    // Subsystem Displays
+     SmartDashboard.putData("Electrical", Electric);
+    SmartDashboard.putData("Drivetrain", Drive);
+    SmartDashboard.putData("Intake", Intake);
+    SmartDashboard.putData("Hatch Arm", Arm);
+
   }
 
   /**
@@ -83,8 +109,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
-
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
      * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -93,9 +117,6 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
   }
 
   /**
@@ -112,9 +133,15 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    Scheduler.getInstance().removeAll();
+
+    teleOpCommand = teleChooser.getSelected();
+    System.out.println("Teleop Init: Command = " + teleOpCommand);
+
+    if (teleOpCommand != null) {
+      Drive.setDefaultCommand(teleOpCommand);
     }
+
   }
 
   /**

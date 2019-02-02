@@ -22,13 +22,13 @@ public class OI {
   //// joystick.
   // You create one by telling it which joystick it's on and which button
   // number it is.
-  Joystick DriverStick = new Joystick(0);
-  Joystick OperatorStick = new Joystick(1);
+  public static final Joystick DriverStick = new Joystick(0);
+  public static final Joystick OperatorStick = new Joystick(1);
 
-  Button ButtonX = new JoystickButton(OperatorStick, 0);
-  Button ButtonY = new JoystickButton(OperatorStick, 1);
-  Button ButtonA = new JoystickButton(OperatorStick, 2);
-  Button ButtonB = new JoystickButton(OperatorStick, 3);
+  public static final Button ButtonX = new JoystickButton(OperatorStick, 0);
+  public static final Button ButtonY = new JoystickButton(OperatorStick, 1);
+  public static final Button ButtonA = new JoystickButton(OperatorStick, 2);
+  public static final Button ButtonB = new JoystickButton(OperatorStick, 3);
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
