@@ -26,14 +26,14 @@ public class OI {
   public static final Joystick DriverStick = new Joystick(RobotMap.DriveJoystick);
   public static final Joystick OperatorStick = new Joystick(RobotMap.OperateJoyStick);
 
-  Button ButtonY = new JoystickButton(OperatorStick, 0);
-  Button ButtonX = new JoystickButton(OperatorStick, 1);
-  Button ButtonA = new JoystickButton(OperatorStick, 2);
-  Button ButtonB = new JoystickButton(OperatorStick, 3);
-  Button ButtonL1 = new JoystickButton(OperatorStick, 4);
-  Button ButtonR1 = new JoystickButton(OperatorStick, 5);
-  Button ButtonL2 = new JoystickButton(OperatorStick, 6);
-  Button ButtonR2 = new JoystickButton(OperatorStick, 7);
+  Button ButtonY = new JoystickButton(OperatorStick, RobotMap.ButtonY);
+  Button ButtonX = new JoystickButton(OperatorStick, RobotMap.ButtonX);
+  Button ButtonA = new JoystickButton(OperatorStick, RobotMap.ButtonA);
+  Button ButtonB = new JoystickButton(OperatorStick, RobotMap.ButtonB);
+  Button ButtonL1 = new JoystickButton(OperatorStick, RobotMap.ButtonL1);
+  Button ButtonR1 = new JoystickButton(OperatorStick, RobotMap.ButtonR1);
+  Button ButtonL2 = new JoystickButton(OperatorStick, RobotMap.ButtonL2);
+  Button ButtonR2 = new JoystickButton(OperatorStick, RobotMap.ButtonR2);
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
