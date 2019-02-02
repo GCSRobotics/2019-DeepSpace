@@ -25,10 +25,14 @@ public class OI {
   public static final Joystick DriverStick = new Joystick(0);
   public static final Joystick OperatorStick = new Joystick(1);
 
-  public static final Button ButtonX = new JoystickButton(OperatorStick, 0);
-  public static final Button ButtonY = new JoystickButton(OperatorStick, 1);
-  public static final Button ButtonA = new JoystickButton(OperatorStick, 2);
-  public static final Button ButtonB = new JoystickButton(OperatorStick, 3);
+  Button ButtonX = new JoystickButton(OperatorStick, 0);
+  Button ButtonY = new JoystickButton(OperatorStick, 1);
+  Button ButtonA = new JoystickButton(OperatorStick, 2);
+  Button ButtonB = new JoystickButton(OperatorStick, 3);
+  Button ButtonL1 = new JoystickButton(OperatorStick, 4);
+  Button ButtonR1 = new JoystickButton(OperatorStick, 5);
+  Button ButtonL2 = new JoystickButton(OperatorStick, 6);
+  Button ButtonR2 = new JoystickButton(OperatorStick, 7);
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
@@ -54,6 +58,9 @@ public class OI {
     ButtonY.whenPressed(new PickupHatch());
     ButtonA.whenPressed(new DeliverHatch());
     ButtonB.whenPressed(new LowerHatchArm());
-
+    ButtonL1.whenPressed(new UnjamCargo());
+    ButtonR1.whenPressed(new PlaceCargoInRocket());
+    ButtonL2.whenPressed(new PlaceCargoInShip());
+    ButtonR2.whenPressed(new PickupCargo());
   }
 }
