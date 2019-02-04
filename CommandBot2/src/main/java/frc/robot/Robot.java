@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,13 +27,11 @@ public class Robot extends TimedRobot {
   public static HatchArm Arm = new HatchArm();
   public static CargoIntake Intake = new CargoIntake();
   public static Drivetrain Drive = new Drivetrain();
-  // public static Electrical Electric = new Electrical();
-  public static OI OI = new OI();
+  public static Electrical Electric = new Electrical();
 
-  SendableChooser<Command> autonChooser = new SendableChooser<>();
-  SendableChooser<Command> teleChooser = new SendableChooser<>();
-  Command autonomousCommand;
-  Command teleOpCommand;
+  SendableChooser<ControllerType> driveCtrlChooser = new SendableChooser<>();
+  SendableChooser<ControllerType> operateCtrlChooser = new SendableChooser<>();
+  SendableChooser<DriveMode> teleChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -46,15 +43,21 @@ public class Robot extends TimedRobot {
   }
 
   private void DashboardInit() {
-    // Auton Mode Selections
-    autonChooser.setDefaultOption("Tank Drive", new DriveWithJoystick(DriveMode.Tank));
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Autono Mode - Disable/Enable to change", autonChooser);
+
+    // Driver Controller Choices
+    driveCtrlChooser.setDefaultOption("PS4", ControllerType.PS4);
+    driveCtrlChooser.addOption("Logitech", ControllerType.Logitech);
+    SmartDashboard.putData("Drive Controller Type", driveCtrlChooser);
+
+    // Operator Controller Choices
+    operateCtrlChooser.setDefaultOption("PS4", ControllerType.PS4);
+    operateCtrlChooser.addOption("Logitech", ControllerType.Logitech);
+    SmartDashboard.putData("Operator Controller Type", driveCtrlChooser);
 
     // TeleOp Mode Selections
-    teleChooser.setDefaultOption("Tank Drive", (Command) new DriveWithJoystick(DriveMode.Tank));
-    teleChooser.addOption("Arcade (Single Stick)", new DriveWithJoystick(DriveMode.ArcadeSingle));
-    teleChooser.addOption("Arcade (Double Stick)", new DriveWithJoystick(DriveMode.ArcadeDouble));
+    teleChooser.setDefaultOption("Tank Drive", DriveMode.Tank);
+    teleChooser.addOption("Arcade (Single Stick)",DriveMode.ArcadeSingle);
+    teleChooser.addOption("Arcade (Double Stick)",DriveMode.ArcadeDouble);
     SmartDashboard.putData("TeleOp Mode - Disable/Enable to change", teleChooser);
 
     // Display Scheduled Commands
@@ -65,7 +68,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Drivetrain", Drive);
     SmartDashboard.putData("Intake", Intake);
     SmartDashboard.putData("Hatch Arm", Arm);
-
   }
 
   /**
@@ -88,6 +90,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Scheduler.getInstance().removeAll();
   }
 
   @Override
@@ -96,27 +99,11 @@ public class Robot extends TimedRobot {
   }
 
   /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable chooser
-   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
-   * remove all of the chooser code and uncomment the getString code to get the
-   * auto name from the text box below the Gyro
-   *
-   * <p>
-   * You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons to
-   * the switch structure below with additional strings & commands.
+   * This function is called once each time the robot enters autonomous mode.
    */
   @Override
   public void autonomousInit() {
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     * switch(autoSelected) { case "My Auto": autonomousCommand = new
-     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-     * ExampleCommand(); break; }
-     */
-
-    // schedule the autonomous command (example)
+    teleopInit();
   }
 
   /**
@@ -124,24 +111,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+    teleopPeriodic();
   }
 
-  @Override
+    /**
+   * This function is called once each time the robot enters operator mode. 
+   */
+@Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
     Scheduler.getInstance().removeAll();
 
-    teleOpCommand = teleChooser.getSelected();
-    System.out.println("Teleop Init: Command = " + teleOpCommand);
+    OI oi = new OI(driveCtrlChooser.getSelected(), operateCtrlChooser.getSelected());
+    
+    DriveMode teleOpMode = teleChooser.getSelected();
+    System.out.println("Teleop Init: DriveMode = " + teleOpMode);
 
-    if (teleOpCommand != null) {
-      Drive.setDefaultCommand(teleOpCommand);
-    }
-
+    Drive.setDefaultCommand(new DriveWithController(oi.GetDriverControl(), teleOpMode));
   }
 
   /**

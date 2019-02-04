@@ -7,22 +7,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.controllers.BaseController;
 import frc.robot.enums.*;
-import frc.robot.properties.*;
 
-public class DriveWithJoystick extends Command {
+public class DriveWithController extends Command {
   DriveMode driveMode;
+  BaseController driveStick;
 
-  public DriveWithJoystick() {
-    this(DriveMode.ArcadeDouble);  //default to Arcade Double stick
-  }
-  public DriveWithJoystick(DriveMode mode) {
+  public DriveWithController(BaseController driveCtrl) {
+    this(driveCtrl, DriveMode.ArcadeDouble);  //default to Arcade Double stick
     requires(Robot.Drive);
-    driveMode = mode;
+  }
+  public DriveWithController(BaseController driveCtrl, DriveMode mode) {
+    requires(Robot.Drive);
+    this.driveStick = driveCtrl;
+    this.driveMode = mode;
   }
 
   // Called just before this Command runs the first time
@@ -33,14 +34,13 @@ public class DriveWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Joystick driveStick = OI.DriverStick;
     switch(driveMode)
     {
-      case ArcadeSingle : Robot.Drive.arcadeDrive(driveStick.getY(), driveStick.getX());
+      case ArcadeSingle : Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_LeftX());
         break;
-      case ArcadeDouble : Robot.Drive.arcadeDrive(driveStick.getRawAxis(RobotMap.ArcadeSpeedAxis), driveStick.getRawAxis(RobotMap.ArcadeRotationAxis));
+      case ArcadeDouble : Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightX());
         break;
-      case Tank : Robot.Drive.tankDrive(driveStick.getRawAxis(RobotMap.TankLeftSpeedAxis), driveStick.getRawAxis(RobotMap.TankRightSpeedAxis));
+      case Tank : Robot.Drive.tankDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightY());
         break;
     }
   }
