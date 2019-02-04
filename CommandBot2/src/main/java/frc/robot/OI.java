@@ -33,7 +33,7 @@ public class OI {
   Button ButtonL1 = new JoystickButton(OperatorStick, RobotMap.ButtonL1);
   Button ButtonR1 = new JoystickButton(OperatorStick, RobotMap.ButtonR1);
   Button ButtonL2 = new JoystickButton(OperatorStick, RobotMap.ButtonL2);
-  Button ButtonR2 = new JoystickButton(OperatorStick, RobotMap.ButtonR2);
+  // Button ButtonR2 = new JoystickButton(OperatorStick, RobotMap.ButtonR2);
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
@@ -62,6 +62,6 @@ public class OI {
     ButtonL1.whenPressed(new UnjamCargo());
     ButtonR1.whenPressed(new PlaceCargoInRocket());
     ButtonL2.whenPressed(new PlaceCargoInShip());
-    ButtonR2.whenPressed(new PickupCargo());
+    // ButtonR2.whenPressed(new PickupCargo());
   }
 }
