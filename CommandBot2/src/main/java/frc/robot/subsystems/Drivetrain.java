@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.controllers.BaseController;
 import frc.robot.properties.RobotMap;
 
 /**
@@ -46,14 +47,6 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-  }
- /**
-   * Tank drive using a PS3 joystick.
-   *
-   * @param joy PS3 style joystick to use as the input for tank drive.
-   */
-  public void tankDrive(Joystick joy) {
-    robotDrive.tankDrive(joy.getRawAxis(RobotMap.TankLeftSpeedAxis), joy.getRawAxis(RobotMap.TankRightSpeedAxis));
   }
 
   /**

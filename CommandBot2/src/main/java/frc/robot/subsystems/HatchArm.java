@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class HatchArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedController armMotor = new PWMVictorSPX(5); // TODO: Ask if this is right
+  private final SpeedController armMotor = new PWMVictorSPX(5); 
 
   public HatchArm() {
     super("Hatch Arm");
