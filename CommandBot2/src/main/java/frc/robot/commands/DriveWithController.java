@@ -36,11 +36,29 @@ public class DriveWithController extends Command {
   protected void execute() {
     switch(driveMode)
     {
-      case ArcadeSingle : Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_LeftX());
+      case ArcadeSingle : 
+        if(driveStick.ButtonR2.get()){
+          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY()/2, driveStick.GetAxis_LeftX()/2);
+
+        } else {
+          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_LeftX());
+        }
         break;
-      case ArcadeDouble : Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightX());
+      case ArcadeDouble : 
+        if(driveStick.ButtonR2.get()){
+          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY()/2, driveStick.GetAxis_RightX()/2);
+
+        } else {
+          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightX());
+        }
         break;
-      case Tank : Robot.Drive.tankDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightY());
+      case Tank : 
+      if(driveStick.ButtonR2.get()){
+        Robot.Drive.tankDrive(driveStick.GetAxis_LeftY()/2, driveStick.GetAxis_RightY()/2);
+
+      } else {
+        Robot.Drive.tankDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightY());
+      }
         break;
     }
   }
