@@ -35,14 +35,18 @@ public class OI {
   }
 
   private void ButtonActionInit() {
+    
+
+
+    // Operator buttons.
     OperatorControl.ButtonA.whenPressed(new StoreHatch());
     OperatorControl.ButtonX.whenPressed(new LowerHatchArm());
     OperatorControl.ButtonB.whenPressed(new PickupHatch());
     OperatorControl.ButtonY.whenPressed(new DeliverHatch());
     OperatorControl.ButtonL1.whenPressed(new UnjamCargo());
     OperatorControl.ButtonR1.whenPressed(new PlaceCargoInRocket());
-    OperatorControl.ButtonOptionL.whenPressed(new PlaceCargoInShip());
-    OperatorControl.ButtonOptionR.whenPressed(new PickupCargo());
+    OperatorControl.ButtonL2.whenPressed(new PlaceCargoInShip());
+    OperatorControl.ButtonR2.whenPressed(new PickupCargo());
   }
 
   public BaseController GetDriverControl() {

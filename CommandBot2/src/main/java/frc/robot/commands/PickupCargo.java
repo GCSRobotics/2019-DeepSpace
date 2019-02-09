@@ -15,7 +15,7 @@ public class PickupCargo extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires (Robot.Intake);
-    setTimeout(1.5);
+    setTimeout(1.5/2);
   }
 
   // Called just before this Command runs the first time
@@ -26,7 +26,7 @@ public class PickupCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Intake.ForwardFullSpeed();
+    Robot.Intake.ForwardHalfSpeed();
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -77,24 +77,23 @@ public class DriveWithController extends Command {
    * @param brakeAxis The axis of the break trigger.
    * @return The modified axis.
    */
-  public static double formatSpeed(double rawAxis, double brakeAxis)
+  private static double formatSpeed(double rawAxis, double brakeAxis)
   {
     var speed = rawAxis;
     var modifier = (brakeAxis + 1)/2;
 
     if(speed > 0)
     {
-      speed -= modifier * .75;
+      speed -= modifier * .25;
       if (speed < 0) speed = 0;
     }
     else if(speed < 0)
     {
-      speed += modifier *.75;
+      speed += modifier *.25;
       if(speed > 0) speed = 0;
     }
 
-    return ((int)(speed * 100))/100.0;
+    return speed;
   }
 }
 //¯\_(ツ)_/¯ 
-// 😂😂😂😂😂😂😂😂😂😂
