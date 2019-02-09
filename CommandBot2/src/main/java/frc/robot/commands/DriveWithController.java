@@ -84,12 +84,12 @@ public class DriveWithController extends Command {
 
     if(speed > 0)
     {
-      speed -= modifier * .25;
+      speed -= modifier * .50;
       if (speed < 0) speed = 0;
     }
     else if(speed < 0)
     {
-      speed += modifier *.25;
+      speed += modifier *.50;
       if(speed > 0) speed = 0;
     }
 

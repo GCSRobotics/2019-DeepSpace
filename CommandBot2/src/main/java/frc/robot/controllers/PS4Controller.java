@@ -36,10 +36,10 @@ public class PS4Controller extends BaseController {
         super(port);
 
         //Define the Properties
-        ButtonA = new JoystickButton(this, buttons.Square.value);
-        ButtonX = new JoystickButton(this, buttons.X.value);
-        ButtonB = new JoystickButton(this, buttons.Triangle.value);
-        ButtonY = new JoystickButton(this, buttons.Circle.value);
+        ButtonA = new JoystickButton(this, buttons.X.value);
+        ButtonX = new JoystickButton(this, buttons.Square.value);
+        ButtonB = new JoystickButton(this, buttons.Circle.value);
+        ButtonY = new JoystickButton(this, buttons.Triangle.value);
         ButtonL1 = new JoystickButton(this, buttons.L1.value);
         ButtonR1 = new JoystickButton(this, buttons.R1.value);
         ButtonL2 = new JoystickButton(this, buttons.L2.value);

@@ -46,7 +46,7 @@ public class OI {
     OperatorControl.ButtonL1.whenPressed(new UnjamCargo());
     OperatorControl.ButtonR1.whenPressed(new PlaceCargoInRocket());
     OperatorControl.ButtonL2.whenPressed(new PlaceCargoInShip());
-    OperatorControl.ButtonR2.whenPressed(new PickupCargo());
+    OperatorControl.ButtonR2.whileHeld(new PickupCargo(OperatorControl));
   }
 
   public BaseController GetDriverControl() {

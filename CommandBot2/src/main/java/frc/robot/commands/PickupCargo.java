@@ -9,14 +9,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.controllers.BaseController;
 
 public class PickupCargo extends Command {
+  private BaseController controller = null;
   public PickupCargo() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires (Robot.Intake);
-    setTimeout(1.5/2);
+    setTimeout(.5);
   }
+public PickupCargo(BaseController controller) {
+  this.controller = controller;
+  requires (Robot.Intake);
+
+}
 
   // Called just before this Command runs the first time
   @Override
@@ -26,13 +33,29 @@ public class PickupCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Intake.ForwardHalfSpeed();
+    if(controller == null)
+    {
+      Robot.Intake.setSpeed(.25);
+    }
+    else
+    {
+      Robot.Intake.setSpeed(controller.GetTrigger_Right());
+    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    if(controller == null)
+    {
+      return isTimedOut();
+    }
+    else
+    {
+      return false;
+    }
+    
   }
 
   // Called once after isFinished returns true
