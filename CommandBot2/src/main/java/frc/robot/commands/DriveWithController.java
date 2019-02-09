@@ -37,16 +37,18 @@ public class DriveWithController extends Command {
     switch(driveMode)
     {
       case ArcadeSingle : 
-          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY() - (driveStick.GetTrigger_Right()/2), 
-            driveStick.GetAxis_LeftX() - (driveStick.GetAxis_LeftY()/2));
+
+        Robot.Drive.arcadeDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), 
+        formatSpeed(driveStick.GetAxis_LeftX(), driveStick.GetTrigger_Right()));
         break;
       case ArcadeDouble : 
-          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY() - (driveStick.GetTrigger_Right()/2),
-            driveStick.GetAxis_RightX() - (driveStick.GetTrigger_Right()/2));
+
+        Robot.Drive.arcadeDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()),
+          formatSpeed(driveStick.GetAxis_RightX(), driveStick.GetTrigger_Right()));
         break;
       case Tank : 
-        Robot.Drive.tankDrive(driveStick.GetAxis_LeftY() - (driveStick.GetTrigger_Right()/2), 
-        driveStick.GetAxis_RightY() - (driveStick.GetTrigger_Right()/2));
+        Robot.Drive.tankDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), 
+          formatSpeed(driveStick.GetAxis_RightY(),driveStick.GetTrigger_Right()));
         break;
     }
   }
@@ -67,5 +69,29 @@ public class DriveWithController extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+  }
+
+  /**
+   * Modifies the value of an axis to account for other factors.
+   * @param rawAxis The axis to modify.
+   * @param breakAxis The axis of the break trigger.
+   * @return The modified axis.
+   */
+  private static double formatSpeed(double rawAxis, double breakAxis)
+  {
+    var speed = rawAxis;
+
+    if(speed > 0)
+    {
+      speed -= breakAxis * .75;
+      if (speed < 0) speed = 0;
+    }
+    else if(speed < 0)
+    {
+      speed += breakAxis *.75;
+      if(speed > 0) speed = 0;
+    }
+
+    return speed;
   }
 }
