@@ -78,6 +78,10 @@ public class Drivetrain extends Subsystem {
     robotDrive.arcadeDrive(speedAxis, rotationAxis, true);
   }
 
+  public void arcadeDrive(double speedAxis, double rotationAxis, boolean squared) {
+    robotDrive.arcadeDrive(speedAxis, rotationAxis, squared);
+  }
+
 
   /**
    * Stop the drivetrain from moving.
