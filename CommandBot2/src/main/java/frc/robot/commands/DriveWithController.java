@@ -37,28 +37,16 @@ public class DriveWithController extends Command {
     switch(driveMode)
     {
       case ArcadeSingle : 
-        if(driveStick.ButtonR2.get()){
-          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY()/2, driveStick.GetAxis_LeftX()/2);
-
-        } else {
-          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_LeftX());
-        }
+          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY() - (driveStick.GetTrigger_Right()/2), 
+            driveStick.GetAxis_LeftX() - (driveStick.GetAxis_LeftY()/2));
         break;
       case ArcadeDouble : 
-        if(driveStick.ButtonR2.get()){
-          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY()/2, driveStick.GetAxis_RightX()/2);
-
-        } else {
-          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightX());
-        }
+          Robot.Drive.arcadeDrive(driveStick.GetAxis_LeftY() - (driveStick.GetTrigger_Right()/2),
+            driveStick.GetAxis_RightX() - (driveStick.GetTrigger_Right()/2));
         break;
       case Tank : 
-      if(driveStick.ButtonR2.get()){
-        Robot.Drive.tankDrive(driveStick.GetAxis_LeftY()/2, driveStick.GetAxis_RightY()/2);
-
-      } else {
-        Robot.Drive.tankDrive(driveStick.GetAxis_LeftY(), driveStick.GetAxis_RightY());
-      }
+        Robot.Drive.tankDrive(driveStick.GetAxis_LeftY() - (driveStick.GetTrigger_Right()/2), 
+        driveStick.GetAxis_RightY() - (driveStick.GetTrigger_Right()/2));
         break;
     }
   }
