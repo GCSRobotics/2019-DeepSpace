@@ -39,16 +39,16 @@ public class DriveWithController extends Command {
       case ArcadeSingle : 
 
         Robot.Drive.arcadeDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), 
-        formatSpeed(driveStick.GetAxis_LeftX(), driveStick.GetTrigger_Right()));
+        driveStick.GetAxis_LeftX());
         break;
       case ArcadeDouble : 
 
         Robot.Drive.arcadeDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()),
-          formatSpeed(driveStick.GetAxis_RightX(), driveStick.GetTrigger_Right()));
+          driveStick.GetAxis_RightX());
         break;
       case Tank : 
         Robot.Drive.tankDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), 
-          formatSpeed(driveStick.GetAxis_RightY(),driveStick.GetTrigger_Right()));
+          driveStick.GetAxis_RightY());
         break;
     }
   }
@@ -74,21 +74,21 @@ public class DriveWithController extends Command {
   /**
    * Modifies the value of an axis to account for other factors.
    * @param rawAxis The axis to modify.
-   * @param breakAxis The axis of the break trigger.
+   * @param brakeAxis The axis of the break trigger.
    * @return The modified axis.
    */
-  private static double formatSpeed(double rawAxis, double breakAxis)
+  public static double formatSpeed(double rawAxis, double brakeAxis)
   {
     var speed = rawAxis;
 
     if(speed > 0)
     {
-      speed -= breakAxis * .75;
+      speed -= brakeAxis * .75;
       if (speed < 0) speed = 0;
     }
     else if(speed < 0)
     {
-      speed += breakAxis *.75;
+      speed += brakeAxis *.75;
       if(speed > 0) speed = 0;
     }
 

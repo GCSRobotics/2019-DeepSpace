@@ -16,17 +16,19 @@ public class RobotMap {
     public static final int DriveCamera = 1;
 
     // Motor values.
-    /*
+    
     public static final int LeftFrontMotor = 0;
     public static final int LeftRearMotor = 1;
     public static final int RightFrontMotor = 2;
     public static final int RightRearMotor = 3;
-    */
+    
 
+    /*
     public static final int LeftFrontMotor = 3;
     public static final int LeftRearMotor = 2;
     public static final int RightFrontMotor = 1;
     public static final int RightRearMotor = 0;
+    */
 
     // Conveyor values.
     public static final int ArmMotor = 4;
