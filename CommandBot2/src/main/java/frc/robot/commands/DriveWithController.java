@@ -92,6 +92,6 @@ public class DriveWithController extends Command {
       if(speed > 0) speed = 0;
     }
 
-    return speed;
+    return ((int)(speed * 100))/100.0;
   }
 }

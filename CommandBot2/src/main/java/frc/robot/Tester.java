@@ -8,8 +8,8 @@ class Tester
     {
         while (true){
             
-            double rawAxis = 1.0;
-            double brakeAxis = 1.0;
+            double rawAxis = .0000000000001;
+            double brakeAxis = 0.0;
             System.out.println(DriveWithController.formatSpeed(rawAxis, brakeAxis));
         }
         
