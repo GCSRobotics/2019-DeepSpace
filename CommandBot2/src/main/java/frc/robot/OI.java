@@ -35,8 +35,6 @@ public class OI {
   }
 
   private void ButtonActionInit() {
-    
-
 
     // Operator buttons.
     OperatorControl.ButtonA.whenPressed(new StoreHatch());

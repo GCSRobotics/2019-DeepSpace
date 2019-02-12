@@ -34,21 +34,23 @@ public class DriveWithController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    var power = 3.0;
+
     switch(driveMode)
     {
       case ArcadeSingle : 
 
-        Robot.Drive.arcadeDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), 
-        driveStick.GetAxis_LeftX());
+        Robot.Drive.arcadeDrive(Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power), 
+        Math.pow(driveStick.GetAxis_LeftX(), power), false);
         break;
       case ArcadeDouble : 
 
-        Robot.Drive.arcadeDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()),
-          driveStick.GetAxis_RightX());
+        Robot.Drive.arcadeDrive(Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power),
+          Math.pow(driveStick.GetAxis_RightX(), power), false);
         break;
       case Tank : 
-        Robot.Drive.tankDrive(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), 
-          driveStick.GetAxis_RightY());
+        Robot.Drive.tankDrive(Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power), 
+          Math.pow(driveStick.GetAxis_RightY(), power));
         break;
     }
   }
