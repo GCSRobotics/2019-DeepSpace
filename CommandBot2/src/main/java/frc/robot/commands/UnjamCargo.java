@@ -9,13 +9,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.controllers.BaseController;
 
 public class UnjamCargo extends Command {
+  private BaseController controller = null;
+
   public UnjamCargo() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires (Robot.Intake);
-    setTimeout(3);
+    setTimeout(.5);
+  }
+
+  public UnjamCargo(BaseController controller)
+  {
+    requires(Robot.Intake);
+    this.controller = controller;
   }
 
   // Called just before this Command runs the first time
@@ -26,7 +35,14 @@ public class UnjamCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Intake.ReverseFullSpeed();
+    if (controller == null)
+    {
+      Robot.Intake.ReverseFullSpeed();
+    }
+    else
+    {
+      Robot.Intake.setSpeed((controller.GetTrigger_Left() + 1) / 2);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

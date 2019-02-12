@@ -39,7 +39,7 @@ public PickupCargo(BaseController controller) {
     }
     else
     {
-      Robot.Intake.setSpeed(controller.GetTrigger_Right());
+      Robot.Intake.setSpeed((controller.GetTrigger_Right() + 1)/2);
     }
     
   }
