@@ -17,9 +17,10 @@ public class DriveWithController extends Command {
   BaseController driveStick;
 
   public DriveWithController(BaseController driveCtrl) {
-    this(driveCtrl, DriveMode.ArcadeDouble);  //default to Arcade Double stick
+    this(driveCtrl, DriveMode.ArcadeDouble); // default to Arcade Double stick
     requires(Robot.Drive);
   }
+
   public DriveWithController(BaseController driveCtrl, DriveMode mode) {
     requires(Robot.Drive);
     this.driveStick = driveCtrl;
@@ -36,22 +37,19 @@ public class DriveWithController extends Command {
   protected void execute() {
     var power = 3.0;
 
-    switch(driveMode)
-    {
-      case ArcadeSingle : 
+    double speed = Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power);
+    double rotation = Math.pow(driveStick.GetAxis_LeftX(), power);
 
-        Robot.Drive.arcadeDrive(Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power), 
-        Math.pow(driveStick.GetAxis_LeftX(), power), false);
-        break;
-      case ArcadeDouble : 
-
-        Robot.Drive.arcadeDrive(Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power),
-          Math.pow(driveStick.GetAxis_RightX(), power), false);
-        break;
-      case Tank : 
-        Robot.Drive.tankDrive(Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power), 
-          Math.pow(driveStick.GetAxis_RightY(), power));
-        break;
+    switch (driveMode) {
+    case ArcadeSingle:
+      Robot.Drive.arcadeDrive(speed, rotation, false);
+      break;
+    case ArcadeDouble:
+      Robot.Drive.arcadeDrive(speed, rotation, false);
+      break;
+    case Tank:
+      Robot.Drive.tankDrive(speed, rotation);
+      break;
     }
   }
 
@@ -75,27 +73,26 @@ public class DriveWithController extends Command {
 
   /**
    * Modifies the value of an axis to account for other factors.
-   * @param rawAxis The axis to modify.
+   * 
+   * @param rawAxis   The axis to modify.
    * @param brakeAxis The axis of the break trigger.
    * @return The modified axis.
    */
-  private static double formatSpeed(double rawAxis, double brakeAxis)
-  {
+  private static double formatSpeed(double rawAxis, double brakeAxis) {
     var speed = rawAxis;
-    var modifier = (brakeAxis + 1)/2;
+    var modifier = (brakeAxis + 1) / 2;
 
-    if(speed > 0)
-    {
+    if (speed > 0) {
       speed -= modifier * .50;
-      if (speed < 0) speed = 0;
-    }
-    else if(speed < 0)
-    {
-      speed += modifier *.50;
-      if(speed > 0) speed = 0;
+      if (speed < 0)
+        speed = 0;
+    } else if (speed < 0) {
+      speed += modifier * .50;
+      if (speed > 0)
+        speed = 0;
     }
 
     return speed;
   }
 }
-//¯\_(ツ)_/¯ 
+// ¯\_(ツ)_/¯ 
