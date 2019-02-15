@@ -38,17 +38,21 @@ public class DriveWithController extends Command {
     var power = 3.0;
 
     double speed = Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power);
-    double rotation = Math.pow(driveStick.GetAxis_LeftX(), power);
+    double rotation;
 
     switch (driveMode) {
     case ArcadeSingle:
+      rotation = Math.pow(driveStick.GetAxis_LeftX(), power);
+
       Robot.Drive.arcadeDrive(speed, rotation, false);
       break;
     case ArcadeDouble:
+      rotation = Math.pow(driveStick.GetAxis_RightX(), power);
       Robot.Drive.arcadeDrive(speed, rotation, false);
       break;
     case Tank:
-      Robot.Drive.tankDrive(speed, rotation);
+      double rightSpeed = Math.pow(formatSpeed(driveStick.GetAxis_RightY(), driveStick.GetTrigger_Right()), power);
+      Robot.Drive.tankDrive(speed, rightSpeed);
       break;
     }
   }

@@ -17,10 +17,10 @@ public class RobotMap {
 
     // Motor values.
     
-    public static final int LeftFrontMotor = 0;
-    public static final int LeftRearMotor = 1;
-    public static final int RightFrontMotor = 2;
-    public static final int RightRearMotor = 3;
+    public static final int LeftFrontMotor = 2;
+    public static final int LeftRearMotor = 3;
+    public static final int RightFrontMotor = 0;
+    public static final int RightRearMotor = 1;
     
 
 
