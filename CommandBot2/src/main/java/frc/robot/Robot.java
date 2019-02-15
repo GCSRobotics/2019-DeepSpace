@@ -127,6 +127,7 @@ public class Robot extends TimedRobot {
     System.out.println("Teleop Init: DriveMode = " + teleOpMode);
 
     Drive.setDefaultCommand(new DriveWithController(oi.GetDriverControl(), teleOpMode));
+    Intake.setDefaultCommand(new IntakeCargo(oi.GetOperatorControl()));
   }
 
   /**
