@@ -39,6 +39,7 @@ public PickupCargo(BaseController controller) {
     }
     else
     {
+      System.out.println("Speed is being set to " + (controller.GetTrigger_Right() + 1)/2 + "!");
       Robot.Intake.setSpeed((controller.GetTrigger_Right() + 1)/2);
     }
     
