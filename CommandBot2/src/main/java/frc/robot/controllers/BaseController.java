@@ -53,6 +53,9 @@ public abstract class BaseController extends Joystick {
             case XBox:
                 controller = new XBoxController(port);
                 break;
+             case Logitech:
+                controller = new LogitechController(port);
+                break;
             default:
                 controller = new PS4Controller(port);
                 break;
