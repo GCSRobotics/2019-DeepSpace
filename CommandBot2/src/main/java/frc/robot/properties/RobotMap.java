@@ -32,6 +32,8 @@ public class RobotMap {
     public static final int DriveJoystick = 0;
     public static final int OperateJoystick = 1;
 
+    // Anolog Inputs.
+    public static final int armLimitSwitch = 0;
     
 
 }

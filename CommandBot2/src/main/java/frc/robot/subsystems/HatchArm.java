@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,11 +19,14 @@ import frc.robot.properties.RobotMap;
 public class HatchArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedController armMotor = new PWMVictorSPX(RobotMap.ArmMotor); 
+  private final SpeedController armMotor = new PWMVictorSPX(RobotMap.ArmMotor);
+  private final DigitalInput limitSwitch = new DigitalInput(0);
+
 
   public HatchArm() {
     super("Hatch Arm");
     addChild((PWMVictorSPX) armMotor);
+    // armLimiter.setLimitsRaw(lower, upper); Ask about this!!
   }
 
   @Override
@@ -41,5 +45,10 @@ public class HatchArm extends Subsystem {
 
   public void Stop() {
     armMotor.set(0);
+  }
+
+  public boolean isLimitSwitchTriggered()
+  {
+    return limitSwitch.get();
   }
 }

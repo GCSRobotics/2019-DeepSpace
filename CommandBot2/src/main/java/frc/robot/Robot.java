@@ -24,6 +24,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
+
   public static HatchArm Arm = new HatchArm();
   public static CargoIntake Intake = new CargoIntake();
   public static Drivetrain Drive = new Drivetrain();
@@ -125,7 +126,7 @@ public class Robot extends TimedRobot {
     
     DriveMode teleOpMode = teleChooser.getSelected();
     System.out.println("Teleop Init: DriveMode = " + teleOpMode);
-
+ 
     Drive.setDefaultCommand(new DriveWithController(oi.GetDriverControl(), teleOpMode));
     Intake.setDefaultCommand(new IntakeCargo(oi.GetOperatorControl()));
   }
@@ -136,6 +137,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
   }
 
   /**
