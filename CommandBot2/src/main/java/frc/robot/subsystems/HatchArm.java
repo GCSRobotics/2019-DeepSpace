@@ -20,7 +20,7 @@ public class HatchArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final SpeedController armMotor = new PWMVictorSPX(RobotMap.ArmMotor);
-  private final DigitalInput limitSwitch = new DigitalInput(0);
+  private final DigitalInput limitSwitch = new DigitalInput(RobotMap.armLimitSwitch);
 
 
   public HatchArm() {

@@ -4,30 +4,29 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.controllers.BaseController;
 import frc.robot.Robot;
 
-public class IntakeCargo extends Command
-{
+public class IntakeCargo extends Command {
     private BaseController controller;
 
-    public IntakeCargo(BaseController controller)
-    {
+    public IntakeCargo(BaseController controller) {
         requires(Robot.Intake);
         this.controller = controller;
     }
 
     @Override
-    protected void execute()
-    {
-        double forwardSpeed = (controller.GetTrigger_Right() + 1)/2;
-        double backwardSpeed = -((controller.GetTrigger_Left() + 1)/2);
-
+    protected void execute() {
+        double forwardSpeed = 0;
+        double backwardSpeed = -((controller.GetTrigger_Left() + 1) / 2);
+        
+        if (!Robot.Intake.isSwitchSet()) {
+            forwardSpeed = (controller.GetTrigger_Right() + 1) / 2;
+        }
         double finalSpeed = forwardSpeed + backwardSpeed;
 
         Robot.Intake.setSpeed(finalSpeed);
     }
 
     @Override
-    protected boolean isFinished()
-    {
+    protected boolean isFinished() {
         return false;
     }
 
@@ -38,6 +37,5 @@ public class IntakeCargo extends Command
     @Override
     protected void interrupted() {
     }
-
 
 }

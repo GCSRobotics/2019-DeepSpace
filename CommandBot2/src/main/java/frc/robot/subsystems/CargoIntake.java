@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -20,16 +21,27 @@ public class CargoIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final SpeedController intakeMotor = new PWMVictorSPX(RobotMap.ConveyorMotor);
-  private final DigitalInput limitSwitch = new DigitalInput(1);
-public CargoIntake() {
-  super("Cargo Intake");
-  addChild((PWMVictorSPX) intakeMotor);
+  private final DigitalInput limitSwitch = new DigitalInput(RobotMap.conveyorLimitSwitch);
+  Counter counter = new Counter(limitSwitch);
 
-}
+  public CargoIntake() {
+    super("Cargo Intake");
+    addChild((PWMVictorSPX) intakeMotor);
+
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public boolean isSwitchSet() {
+    return counter.get() > 0;
+  }
+
+  public void initializeCounter() {
+    counter.reset();
   }
 
   public void ForwardFullSpeed() {
@@ -48,8 +60,7 @@ public CargoIntake() {
     intakeMotor.set(-.5);
   }
 
-  public void setSpeed(double speed)
-  {
+  public void setSpeed(double speed) {
     intakeMotor.set(speed);
   }
 

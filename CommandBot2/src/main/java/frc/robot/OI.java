@@ -41,6 +41,7 @@ public class OI {
     OperatorControl.ButtonX.whenPressed(new LowerHatchArm());
     OperatorControl.ButtonB.whenPressed(new PickupHatch());
     OperatorControl.ButtonY.whenPressed(new DeliverHatch());
+    OperatorControl.ButtonR1.whenPressed(new PlaceCargoInRocket());
   }
 
   public BaseController GetDriverControl() {

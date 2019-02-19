@@ -34,6 +34,7 @@ public class RobotMap {
 
     // Anolog Inputs.
     public static final int armLimitSwitch = 0;
+    public static final int conveyorLimitSwitch = 1;
     
 
 }
