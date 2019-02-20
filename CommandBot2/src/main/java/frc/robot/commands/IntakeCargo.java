@@ -13,6 +13,11 @@ public class IntakeCargo extends Command {
     }
 
     @Override
+    protected void initialize() {
+        Robot.Intake.initializeCounter();
+    }
+
+    @Override
     protected void execute() {
         double forwardSpeed = 0;
         double backwardSpeed = -((controller.GetTrigger_Left() + 1) / 2);
