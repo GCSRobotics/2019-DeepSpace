@@ -27,7 +27,7 @@ public class CargoIntake extends Subsystem {
   public CargoIntake() {
     super("Cargo Intake");
     addChild((PWMVictorSPX) intakeMotor);
-
+    addChild(limitSwitch);
   }
 
   @Override
