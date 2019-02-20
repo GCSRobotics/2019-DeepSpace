@@ -40,6 +40,7 @@ public class CargoIntake extends Subsystem {
     return counter.get() > 0;
   }
 
+
   public void initializeCounter() {
     counter.reset();
   }
