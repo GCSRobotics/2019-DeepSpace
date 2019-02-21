@@ -24,7 +24,6 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
-
   public static HatchArm Arm = new HatchArm();
   public static CargoIntake Intake = new CargoIntake();
   public static Drivetrain Drive = new Drivetrain();
@@ -48,18 +47,20 @@ public class Robot extends TimedRobot {
     // Driver Controller Choices
     driveCtrlChooser.setDefaultOption("PS4", ControllerType.PS4);
     driveCtrlChooser.addOption("Logitech", ControllerType.Logitech);
-    SmartDashboard.putData("Drive Controller Type", driveCtrlChooser);
+    driveCtrlChooser.addOption("XBox", ControllerType.XBox);
+    SmartDashboard.putData("Driver", driveCtrlChooser);
 
     // Operator Controller Choices
     operateCtrlChooser.setDefaultOption("PS4", ControllerType.PS4);
     operateCtrlChooser.addOption("Logitech", ControllerType.Logitech);
-    SmartDashboard.putData("Operator Controller Type", driveCtrlChooser);
+    operateCtrlChooser.addOption("XBox", ControllerType.XBox);
+    SmartDashboard.putData("Operator", operateCtrlChooser);
 
     // TeleOp Mode Selections
-    teleChooser.setDefaultOption("Tank Drive", DriveMode.Tank);
-    teleChooser.addOption("Arcade (Single Stick)",DriveMode.ArcadeSingle);
-    teleChooser.addOption("Arcade (Double Stick)",DriveMode.ArcadeDouble);
-    SmartDashboard.putData("TeleOp Mode - Disable/Enable to change", teleChooser);
+    teleChooser.setDefaultOption("Arcade (Double Stick)", DriveMode.ArcadeDouble);
+    teleChooser.addOption("Arcade (Single Stick)", DriveMode.ArcadeSingle);
+    teleChooser.addOption("Tank Drive", DriveMode.Tank);
+    SmartDashboard.putData("TeleOp Mode", teleChooser);
 
     // Display Scheduled Commands
     SmartDashboard.putData(Scheduler.getInstance());
@@ -115,18 +116,18 @@ public class Robot extends TimedRobot {
     teleopPeriodic();
   }
 
-    /**
-   * This function is called once each time the robot enters operator mode. 
+  /**
+   * This function is called once each time the robot enters operator mode.
    */
-@Override
+  @Override
   public void teleopInit() {
     Scheduler.getInstance().removeAll();
 
     OI oi = new OI(driveCtrlChooser.getSelected(), operateCtrlChooser.getSelected());
-    
+
     DriveMode teleOpMode = teleChooser.getSelected();
     System.out.println("Teleop Init: DriveMode = " + teleOpMode);
- 
+
     Drive.setDefaultCommand(new DriveWithController(oi.GetDriverControl(), teleOpMode));
     Intake.setDefaultCommand(new IntakeCargo(oi.GetOperatorControl()));
   }
