@@ -63,4 +63,13 @@ public abstract class BaseController extends Joystick {
         return controller;
     }
 
+    public void StartRumble()
+    {
+    }
+
+    public void StopRumble()
+    {
+    }
+
+
 }

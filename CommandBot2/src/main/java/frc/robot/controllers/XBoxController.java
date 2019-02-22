@@ -17,10 +17,10 @@ public class XBoxController extends BaseController {
      * Represents a digital button on an XBox Controller.
      */
     private enum buttons {
-        A(1), X(2), B(3), Y(4), 
-        L1(5), R1(6), L2(7), R2(8), 
-        Option(9), Map(10), 
-        LStick(11), RStick(12);
+        A(1), B(2), X(3), Y(4), 
+        L1(5), R1(6), 
+        Option(7), Map(8), 
+        LStick(9), RStick(10);
 
         private final int value;
         buttons(int value) {
@@ -40,8 +40,6 @@ public class XBoxController extends BaseController {
         ButtonY = new JoystickButton(this, buttons.Y.value);
         ButtonL1 = new JoystickButton(this, buttons.L1.value);
         ButtonR1 = new JoystickButton(this, buttons.R1.value);
-        ButtonL2 = new JoystickButton(this, buttons.L2.value);
-        ButtonR2 = new JoystickButton(this, buttons.R2.value);
         ButtonStickL = new JoystickButton(this, buttons.LStick.value);
         ButtonStickR = new JoystickButton(this, buttons.RStick.value);
         ButtonOptionL = new JoystickButton(this, buttons.Option.value);
@@ -57,7 +55,7 @@ public class XBoxController extends BaseController {
     }
 
     public double GetAxis_RightX() {
-        return this.getRawAxis(2);
+        return this.getRawAxis(4);
     }
 
     public double GetAxis_RightY() {
@@ -65,11 +63,24 @@ public class XBoxController extends BaseController {
     }
 
     public double GetTrigger_Left(){
-        return this.getRawAxis(3);
+        return this.getRawAxis(2);
     }
 
     public double GetTrigger_Right(){
-        return this.getRawAxis(4);
+        return this.getRawAxis(3);
     }
 
+    @Override
+    public void StartRumble()
+    {
+        this.setRumble(RumbleType.kLeftRumble,1);
+        this.setRumble(RumbleType.kRightRumble,1);
+    }
+
+    @Override
+    public void StopRumble()
+    {
+        this.setRumble(RumbleType.kLeftRumble,0);
+        this.setRumble(RumbleType.kRightRumble,0);
+    }
 }
