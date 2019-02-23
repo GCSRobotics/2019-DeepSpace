@@ -85,7 +85,7 @@ public class DriveWithController extends Command {
    */
   private static double formatSpeed(double rawAxis, double brakeAxis) {
     var speed = rawAxis;
-    var modifier = (brakeAxis + 1) / 2;
+    var modifier = brakeAxis;
 
     if (speed > 0) {
       speed -= modifier * .50;

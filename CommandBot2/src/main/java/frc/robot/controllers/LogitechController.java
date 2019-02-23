@@ -61,11 +61,17 @@ public class LogitechController extends BaseController {
     }
 
     public double GetTrigger_Left() {
-        return this.getRawAxis(2);
+        // Axis is -1 to 1, modify it to 0 to 1.
+        var value = this.getRawAxis(2);
+        value = (value + 1)/2;
+        return value;
     }
 
     public double GetTrigger_Right() {
-        return this.getRawAxis(3);
+        // Axis is -1 to 1, modify it to 0 to 1.
+        var value = this.getRawAxis(3);
+        value = (value + 1)/2;
+        return value;
     }
 
 }

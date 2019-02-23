@@ -20,10 +20,10 @@ public class IntakeCargo extends Command {
     @Override
     protected void execute() {
         double forwardSpeed = 0;
-        double backwardSpeed = -((controller.GetTrigger_Left() + 1) / 2);
+        double backwardSpeed = -controller.GetTrigger_Left();
         
         if (!Robot.Intake.isSwitchSet()) {
-            forwardSpeed = (controller.GetTrigger_Right() + 1) / 2;
+            forwardSpeed = controller.GetTrigger_Right();
         }
         double finalSpeed = forwardSpeed + backwardSpeed;
 
