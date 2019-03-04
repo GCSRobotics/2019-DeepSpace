@@ -38,6 +38,10 @@ public class DriveWithController extends Command {
     var power = 3.0;
     var multiple = .75;
 
+    // If the left bumper is held, do not limit the power of the motors.
+    if(driveStick.ButtonL1.get()) multiple = 1;
+
+
     double speed = Math.pow(formatSpeed(driveStick.GetAxis_LeftY(), driveStick.GetTrigger_Right()), power) * multiple;
     double rotation;
 
