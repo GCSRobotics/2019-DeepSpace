@@ -36,6 +36,9 @@ public class OI {
 
   private void ButtonActionInit() {
 
+    // Driver buttons.
+    DriverControl.ButtonY.whileHeld(new StartClimb());
+
     // Operator buttons.
     OperatorControl.ButtonA.whenPressed(new StoreHatch());
     OperatorControl.ButtonX.whenPressed(new LowerHatchArm());

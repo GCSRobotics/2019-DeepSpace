@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   public static CargoIntake Intake = new CargoIntake();
   public static Drivetrain Drive = new Drivetrain();
   public static Electrical Electric = new Electrical();
+  public static Climb Climb = new Climb();
 
   SendableChooser<ControllerType> driveCtrlChooser = new SendableChooser<>();
   SendableChooser<ControllerType> operateCtrlChooser = new SendableChooser<>();
