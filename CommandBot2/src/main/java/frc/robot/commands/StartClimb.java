@@ -5,6 +5,11 @@ import frc.robot.Robot;
 
 public class StartClimb extends Command
 {
+    public StartClimb()
+    {
+        requires(Robot.Climb);
+    }
+
     @Override
     protected boolean isFinished() {
         return false;
