@@ -23,19 +23,12 @@ public class Climb extends Subsystem
 
     /**
      * Sets the speed of the motor.
-     * <i><b>THIS MOTOR SHOULD NEVER BE RUN BACKWARDS!!</b></i>
      * 
      * @param speed The speed at which to set the motor, from 1.0 to 0.0.
      */
     public void setSpeed(double speed)
     {
         System.out.println("Setting speed to " + speed);
-        if(speed > 1.0 || speed < 0)
-        {
-            System.out.println("Speed " + speed + " is out of range.");
-            speed = 0;
-        }
-
         climbMotor.set(speed);
     }
 
@@ -45,11 +38,15 @@ public class Climb extends Subsystem
         setSpeed(.3);
     }
 
+    public void moveReverse()
+    {
+        System.out.println("moveReverse() called.");
+        setSpeed(-.3);
+    }
+
     public void stop()
     {
         System.out.println("stop() called.");
         setSpeed(0);
     }
-
-
 }

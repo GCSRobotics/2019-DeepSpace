@@ -38,6 +38,7 @@ public class OI {
 
     // Driver buttons.
     DriverControl.ButtonY.whileHeld(new StartClimb());
+    DriverControl.ButtonX.whileHeld(new RetractClimb());
 
     // Operator buttons.
     OperatorControl.ButtonA.whenPressed(new StoreHatch());
