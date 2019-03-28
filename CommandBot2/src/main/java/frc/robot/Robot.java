@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Drivetrain", Drive);
     SmartDashboard.putData("Intake", Intake);
     SmartDashboard.putData("Hatch Arm", Arm);
+    SmartDashboard.putData("Climb", Climb);
   }
 
   /**

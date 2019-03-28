@@ -14,6 +14,11 @@ public class ClimbIdle extends Command
     }
 
     @Override
+    protected void execute() {
+        Robot.Climb.stop();
+    }
+
+    @Override
     protected boolean isFinished() {
         return false;
     }

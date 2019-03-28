@@ -22,13 +22,14 @@ public class StartClimb extends Command
 
     @Override
     protected void interrupted() {
-        end();
+        // System.out.println("\nWe were interrupted!!!\n");
+        // end();
     }
 
-    @Override
-    protected void end() {
-        Robot.Climb.stop();
-    }
+    // @Override
+    // protected void end() {
+    //     Robot.Climb.stop();
+    // }
 
 
     

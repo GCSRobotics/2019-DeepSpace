@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.ClimbIdle;
 import frc.robot.properties.RobotMap;
 
 public class Climb extends Subsystem
 {
-    private static final PWMVictorSPX climbMotor = new PWMVictorSPX(RobotMap.ClimMotor);
+    private static final SpeedController climbMotor = new PWMVictorSPX(RobotMap.ClimMotor);
 
     public void initDefaultCommand()
     {
@@ -17,7 +18,7 @@ public class Climb extends Subsystem
     public Climb()
     {
         super("Climb");
-        this.addChild(climbMotor);
+        this.addChild((PWMVictorSPX)climbMotor);
     }
 
     /**
@@ -28,6 +29,7 @@ public class Climb extends Subsystem
      */
     public void setSpeed(double speed)
     {
+        System.out.println("Setting speed to " + speed);
         if(speed > 1.0 || speed < 0)
         {
             System.out.println("Speed " + speed + " is out of range.");
@@ -39,11 +41,13 @@ public class Climb extends Subsystem
 
     public void moveForward()
     {
+        System.out.println("moveForward() called.");
         setSpeed(.3);
     }
 
     public void stop()
     {
+        System.out.println("stop() called.");
         setSpeed(0);
     }
 
