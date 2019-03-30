@@ -8,6 +8,7 @@
 package frc.robot.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import frc.robot.enums.ControllerType;
 
@@ -47,29 +48,26 @@ public abstract class BaseController extends Joystick {
     public static BaseController CreateInstance(ControllerType type, int port) {
         BaseController controller;
         switch (type) {
-            case PS4:
-                controller = new PS4Controller(port);
-                break;
-            case XBox:
-                controller = new XBoxController(port);
-                break;
-             case Logitech:
-                controller = new LogitechController(port);
-                break;
-            default:
-                controller = new PS4Controller(port);
-                break;
+        case PS4:
+            controller = new PS4Controller(port);
+            break;
+        case XBox:
+            controller = new XBoxController(port);
+            break;
+        case Logitech:
+            controller = new LogitechController(port);
+            break;
+        default:
+            controller = new XBoxController(port);
+            break;
         }
         return controller;
     }
 
-    public void StartRumble()
-    {
+    public void StartRumble() {
     }
 
-    public void StopRumble()
-    {
+    public void StopRumble() {
     }
-
 
 }
