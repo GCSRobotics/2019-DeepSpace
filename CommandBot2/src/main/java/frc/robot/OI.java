@@ -21,7 +21,7 @@ public class OI {
   private BaseController OperatorControl;
 
   public OI() {
-    ControllerInit(ControllerType.PS4, ControllerType.PS4);
+    ControllerInit(ControllerType.XBox, ControllerType.XBox);
   }
 
   public OI(ControllerType driveType, ControllerType operatorType) {
