@@ -35,7 +35,7 @@ public class Climb extends Subsystem
     public void moveForward()
     {
         System.out.println("moveForward() called.");
-        setSpeed(.3);
+        setSpeed(.7);
     }
 
     public void moveReverse()
