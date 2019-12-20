@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain Drive = new Drivetrain();
   public static Electrical Electric = new Electrical();
   public static Climb Climb = new Climb();
+  public static Cannon Cannon = new Cannon();
 
   SendableChooser<ControllerType> driveCtrlChooser = new SendableChooser<>();
   SendableChooser<ControllerType> operateCtrlChooser = new SendableChooser<>();
@@ -46,21 +47,19 @@ public class Robot extends TimedRobot {
   private void DashboardInit() {
 
     // Driver Controller Choices
-    driveCtrlChooser.setDefaultOption("PS4", ControllerType.PS4);
     driveCtrlChooser.addOption("Logitech", ControllerType.Logitech);
-    driveCtrlChooser.addOption("XBox", ControllerType.XBox);
+    driveCtrlChooser.setDefaultOption("Xbox", ControllerType.XBox);
     SmartDashboard.putData("Driver", driveCtrlChooser);
 
     // Operator Controller Choices
-    operateCtrlChooser.setDefaultOption("PS4", ControllerType.PS4);
     operateCtrlChooser.addOption("Logitech", ControllerType.Logitech);
-    operateCtrlChooser.addOption("XBox", ControllerType.XBox);
+    operateCtrlChooser.setDefaultOption("Xbox", ControllerType.XBox);
     SmartDashboard.putData("Operator", operateCtrlChooser);
 
     // TeleOp Mode Selections
-    teleChooser.setDefaultOption("Arcade (Double Stick)", DriveMode.ArcadeDouble);
     teleChooser.addOption("Arcade (Single Stick)", DriveMode.ArcadeSingle);
     teleChooser.addOption("Tank Drive", DriveMode.Tank);
+    teleChooser.setDefaultOption("Arcade (Double Stick)", DriveMode.ArcadeDouble);
     SmartDashboard.putData("TeleOp Mode", teleChooser);
 
     // Display Scheduled Commands
@@ -72,6 +71,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Intake", Intake);
     SmartDashboard.putData("Hatch Arm", Arm);
     SmartDashboard.putData("Climb", Climb);
+    SmartDashboard.putData("Cannon", Cannon);
   }
 
   /**

@@ -12,23 +12,24 @@ package frc.robot.properties;
  */
 public class RobotMap {
     // Camera values.
+    
     public static final int HatchCamera = 0;
     public static final int DriveCamera = 1;
 
     // Motor values.
     
-    public static final int LeftFrontMotor = 2;
-    public static final int LeftRearMotor = 3;
-    public static final int RightFrontMotor = 0;
-    public static final int RightRearMotor = 1;
+    public static final int LeftFrontMotor = 3;
+    public static final int LeftRearMotor = 4;
+    public static final int RightFrontMotor = 1;
+    public static final int RightRearMotor = 2;
 
-    public static final int ClimMotor = 6;
+    public static final int ClimMotor = 7;
     
 
 
     // Conveyor values.
-    public static final int ArmMotor = 4;
-    public static final int ConveyorMotor = 5;
+    public static final int ArmMotor = 5;
+    public static final int ConveyorMotor = 6;
 
     // Joystick values.
     public static final int DriveJoystick = 0;

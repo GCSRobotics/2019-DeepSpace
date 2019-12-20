@@ -40,6 +40,9 @@ public class OI {
     DriverControl.ButtonY.whileHeld(new StartClimb());
     DriverControl.ButtonX.whileHeld(new RetractClimb());
 
+    DriverControl.ButtonB.whenPressed(new LoadFireTank());
+    DriverControl.ButtonA.whenPressed(new FireCannon());
+
     // Operator buttons.
     OperatorControl.ButtonA.whenPressed(new StoreHatch());
     OperatorControl.ButtonX.whenPressed(new LowerHatchArm());

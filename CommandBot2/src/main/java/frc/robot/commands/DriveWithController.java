@@ -36,7 +36,7 @@ public class DriveWithController extends Command {
   @Override
   protected void execute() {
     var power = 3.0;
-    var multiple = .75;
+    var multiple = .55;
 
     // If the left bumper is held, do not limit the power of the motors.
     if(driveStick.ButtonL1.get()) multiple = 1;

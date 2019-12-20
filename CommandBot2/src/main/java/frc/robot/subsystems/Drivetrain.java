@@ -7,9 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.properties.RobotMap;
@@ -18,10 +19,10 @@ import frc.robot.properties.RobotMap;
  * Add your docs here.
  */
 public class Drivetrain extends Subsystem {
-  private static final PWMVictorSPX RearRightMotor = new PWMVictorSPX(RobotMap.RightRearMotor);
-  private static final PWMVictorSPX FrontRightMotor = new PWMVictorSPX(RobotMap.RightFrontMotor);
-  private static final PWMVictorSPX RearLeftMotor = new PWMVictorSPX(RobotMap.LeftRearMotor);
-  private static final PWMVictorSPX FrontLeftMotor = new PWMVictorSPX(RobotMap.LeftFrontMotor);
+  private static final WPI_VictorSPX RearRightMotor = new WPI_VictorSPX(RobotMap.RightRearMotor);
+  private static final WPI_VictorSPX FrontRightMotor = new WPI_VictorSPX(RobotMap.RightFrontMotor);
+  private static final WPI_VictorSPX RearLeftMotor = new WPI_VictorSPX(RobotMap.LeftRearMotor);
+  private static final WPI_VictorSPX FrontLeftMotor = new WPI_VictorSPX(RobotMap.LeftFrontMotor);
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final SpeedControllerGroup speedControllerGroupLeft = 
@@ -33,10 +34,10 @@ public class Drivetrain extends Subsystem {
 
   public Drivetrain() {
     super("Drivetrain");
-    addChild((PWMVictorSPX) RearLeftMotor);
-    addChild((PWMVictorSPX) RearRightMotor);
-    addChild((PWMVictorSPX) FrontLeftMotor);
-    addChild((PWMVictorSPX) FrontRightMotor);
+    addChild((WPI_VictorSPX) RearLeftMotor);
+    addChild((WPI_VictorSPX) RearRightMotor);
+    addChild((WPI_VictorSPX) FrontLeftMotor);
+    addChild((WPI_VictorSPX) FrontRightMotor);
     addChild((SpeedControllerGroup) speedControllerGroupLeft);
     addChild((SpeedControllerGroup) speedControllerGroupRight);
     addChild((DifferentialDrive) robotDrive);
